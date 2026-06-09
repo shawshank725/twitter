@@ -1,0 +1,27 @@
+package com.social.twitter.connections;
+
+
+import com.social.twitter.connections.internal.dto.FollowerFolloweeDTO;
+import com.social.twitter.connections.internal.entity.ConnectionEntity;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
+public interface ConnectionService {
+
+    ConnectionEntity addConnection(ConnectionEntity connectionEntity);
+
+    String deleteConnectionByEntity(ConnectionEntity connectionEntity);
+
+    String deleteConnectionById(long connectionId);
+
+    List<ConnectionEntity> getFollowersOfAUser(Long userId);
+
+    List<ConnectionEntity> getUsersFollowedByUser(Long userId);
+
+    ConnectionEntity findByFollowerAndFolloweeId(Long followerId, Long followeeId);
+
+    String deleteConnectionByFollowerAndFolloweeId(Long followerId, Long followeeId);
+
+    FollowerFolloweeDTO getUserConnections( Long userId);
+}
