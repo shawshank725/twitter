@@ -24,7 +24,7 @@ export async function deleteConnectionByBothIds(followeeId: number , followerId:
 }
 
 export async function getUsersConnection(userId: number): Promise<AxiosResponse<FollowerFolloweeDTO>>{
-    return await axios.get(`${SPRING_BOOT_LOCALHOST}/connection/getUsersConnection`, 
+    return await axios.get(`${SPRING_BOOT_LOCALHOST}/connection/getUserConnections`, 
         {
             
             withCredentials: true,
