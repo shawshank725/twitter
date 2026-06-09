@@ -5,6 +5,7 @@ import type { BookmarkEntity } from '@/types/Bookmarks/BookmarkEntity';
 import type { PostEntity } from '@/types/Posts/PostEntity';
 
 export async function addBookmark(newBookmarkEntity: NewBookmarkEntity): Promise<AxiosResponse<BookmarkEntity>>{
+    console.log(newBookmarkEntity);
     return await axios.post(
         `${SPRING_BOOT_LOCALHOST}/bookmark/addBookmark`, 
         newBookmarkEntity,

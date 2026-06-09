@@ -1,7 +1,5 @@
 package com.social.twitter.posting.posts.internal.entity;
 
-//import com.social.twitter.posting.bookmarks.entity.BookmarkEntity;
-//import com.example.posting_service.likes.entity.LikeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.social.twitter.posting.bookmarks.internal.entity.BookmarkEntity;
 import com.social.twitter.posting.likes.internal.entity.LikeEntity;

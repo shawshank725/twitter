@@ -1,49 +1,48 @@
 package com.social.twitter.posting.likes.internal.service;
 
-//import com.social.twitter.posting.common.entity.NotificationEntity;
-//import com.example.posting_service.common.enums.NotificationStatus;
-//import com.example.posting_service.common.enums.NotificationType;
-//import com.example.posting_service.common.service.NotificationRestClientInterface;
+import com.social.twitter.notification.NotificationService;
+import com.social.twitter.notification.entity.NotificationEntity;
+import com.social.twitter.notification.enums.NotificationStatus;
+import com.social.twitter.notification.enums.NotificationType;
 import com.social.twitter.posting.likes.LikeService;
 import com.social.twitter.posting.likes.internal.entity.LikeEntity;
 import com.social.twitter.posting.likes.internal.repository.LikeRepository;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.posting.posts.internal.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class LikeServiceImpl implements LikeService {
 
-    @Autowired
-    private LikeRepository likeRepository;
-
-
-    @Autowired
-    private PostRepository postRepository;
+    private final LikeRepository likeRepository;
+    private final PostRepository postRepository;
+    private final NotificationService notificationService;
 
     @Override
     public LikeEntity saveLikeEntity(LikeEntity likeEntity) {
         LikeEntity savedLike = likeRepository.save(likeEntity);
-//        if (likeEntity.getLikedByUserId() != likeEntity.getLikedPost().getUserId()){
-//            NotificationEntity notificationEntity = notificationRestClientInterface.sendNotification(
-//                    NotificationEntity.builder()
-//                            .notificationStatus(NotificationStatus.UNREAD)
-//                            .notifiedUserId(likeEntity.getLikedPost().getUserId())
-//                            .postId(likeEntity.getLikedPost().getPostId())
-//                            .notificationTime(new Timestamp(System.currentTimeMillis()))
-//                            .notificationType(NotificationType.LIKE)
-//                            .triggeredByUserId(likeEntity.getLikedByUserId())
-//                            .build()
-//            );
-//            log.info("NOTIFICATION ENTITY - {}", notificationEntity);
-//        }
+        if (likeEntity.getLikedByUserId() != likeEntity.getLikedPost().getUserId()){
+            NotificationEntity notificationEntity = notificationService.sendNotification(
+                    NotificationEntity.builder()
+                            .notificationStatus(NotificationStatus.UNREAD)
+                            .notifiedUserId(likeEntity.getLikedPost().getUserId())
+                            .postId(likeEntity.getLikedPost().getPostId())
+                            .notificationTime(new Timestamp(System.currentTimeMillis()))
+                            .notificationType(NotificationType.LIKE)
+                            .triggeredByUserId(likeEntity.getLikedByUserId())
+                            .build()
+            );
+            log.info("NOTIFICATION ENTITY - {}", notificationEntity);
+        }
         return savedLike;
     }
 

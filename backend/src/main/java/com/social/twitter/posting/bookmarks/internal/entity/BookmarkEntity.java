@@ -3,9 +3,7 @@ package com.social.twitter.posting.bookmarks.internal.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -16,6 +14,8 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"bookmarkedPost"})
+@EqualsAndHashCode(exclude = {"bookmarkedPost"})
 public class BookmarkEntity {
 
     @Id
