@@ -45,7 +45,7 @@ export default function Sidebar({userInfo}: UserInfoProp) {
     const navigate = useNavigate();
     const location = useLocation();
     
-    const { data: unreadNotificationsCount } = useGetUnreadNotificationsCount(userInfo?.id ?? 0);
+    const { data: unreadNotificationsCount } = useGetUnreadNotificationsCount(userInfo?.userId ?? 0);
 
     const logout =() => {
         localStorage.removeItem("authToken");

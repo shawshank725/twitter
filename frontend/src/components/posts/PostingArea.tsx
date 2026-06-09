@@ -34,7 +34,7 @@ export default function PostingArea({userInfo, replyingToPostId}: UserProp) {
   const [isPosting, setIsPosting] = useState<boolean>(false);
 
   const savePost = async () => {
-    if (!userInfo || !userInfo.id) {
+    if (!userInfo || !userInfo.userId) {
       console.error("User info or user ID is missing");
       return;
     }
@@ -42,7 +42,7 @@ export default function PostingArea({userInfo, replyingToPostId}: UserProp) {
     setIsPosting(true);
     const date = new Date();
 
-    const userId = userInfo.id;
+    const userId = userInfo.userId;
     const mediaList: NewPostMediaEntity[] = [];
 
     try {

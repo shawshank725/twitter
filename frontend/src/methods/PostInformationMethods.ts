@@ -30,8 +30,8 @@ export const deletePost = async(postId: number, userEntity: User,
   try {
       const { data } = await deletePostByPostId(postId);
       toast(`Post deleted.`);
-      await queryClient.invalidateQueries({queryKey: ['posts', userEntity.id]});
-      console.log("Invalidated posts query for user:", userEntity.id);
+      await queryClient.invalidateQueries({queryKey: ['posts', userEntity.userId]});
+      console.log("Invalidated posts query for user:", userEntity.userId);
       setShowMoreSettings(false);
       refetch?.();
   }
@@ -45,7 +45,7 @@ export const addRemoveLike = async (postEntity:PostEntity,
   refetchPostLikesCount:()=> void, userLikedPostsResult: UseQueryResult<AxiosResponse<LikeEntity[]>>) => {
   try {
     if (userHasLikedPost) {
-      const result = await deleteLikeEntity(postEntity.postId, authUser!.id);
+      const result = await deleteLikeEntity(postEntity.postId, authUser!.userId);
       refetchPostLikesCount();
       userLikedPostsResult.refetch();
     }
@@ -53,7 +53,7 @@ export const addRemoveLike = async (postEntity:PostEntity,
       // ADD THE LIKE 
       const date = new Date();
       const result = await addLike({
-        likedByUserId: authUser!.id,
+        likedByUserId: authUser!.userId,
         likedPost: postEntity,
         likedAt: date.toISOString(),
       });
@@ -70,7 +70,7 @@ export const addRemoveBookmark = async (postEntity:PostEntity,
 
     try {
     if (userHasBookmarkedPost) {
-      const result = await removeBookmarkEntity(postEntity.postId, authUser!.id);
+      const result = await removeBookmarkEntity(postEntity.postId, authUser!.userId);
       refetchPostBookmarksCount();
       userBookmarkedPostsResult.refetch();
     }
@@ -78,7 +78,7 @@ export const addRemoveBookmark = async (postEntity:PostEntity,
       // ADD THE LIKE 
       const date = new Date();
       const result = await addBookmark({
-        bookmarkedByUserId: authUser!.id,
+        bookmarkedByUserId: authUser!.userId,
         bookmarkedPost: postEntity,
         bookmarkedAt: date.toISOString(),
       });

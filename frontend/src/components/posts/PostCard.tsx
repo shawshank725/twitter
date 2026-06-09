@@ -65,7 +65,7 @@ export default function PostCard({ userId, postEntity,
     const likesCount = postLikesCount ?? 0;
 
     // BOOKMARK THINGS HERE
-    const userHasBookmarkedPost = hasUserBookmarkedPost(userBookmarkedPostsResult?.data?.data, authUser?.id!, postEntity.postId);
+    const userHasBookmarkedPost = hasUserBookmarkedPost(userBookmarkedPostsResult?.data?.data, authUser?.userId!, postEntity.postId);
     const { data: postBookmarksCount, refetch: refetchPostBookmarksCount } = useGetPostBookmarkCount(postEntity.postId);
     const bookmarksCount = postBookmarksCount?.data ?? 0;
 

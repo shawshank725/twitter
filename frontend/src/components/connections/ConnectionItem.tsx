@@ -36,7 +36,7 @@ export default function ConnectionItem({id, index, isFollowing}: ConnectionItemP
             </div>
             <div className="followButtonContainer" onMouseEnter={()=> {setIsHovered(true)}} onMouseLeave={()=> {setIsHovered(false)}}>
                 {
-                    authUser?.id !== user?.data.id && (
+                    authUser?.userId !== user?.data.userId && (
                         isFollowing ? (
                             isHovered ? (
                                 <button className="unfollowButton">Unfollow</button>

@@ -100,7 +100,7 @@ export default function ProfilePageTabs({ authUser,
                                 replyPosts.map((post, index) => (
                                     <PostCard
                                         key={index}
-                                        userId={authUser.id}
+                                        userId={authUser.userId}
                                         postEntity={post}
                                         refetch={refetchAllPosts}
                                         userLikedPostsResult={userLikedPostsResult}
@@ -134,7 +134,7 @@ export default function ProfilePageTabs({ authUser,
                                 replyPosts.map((post, index) => (
                                     <PostCard
                                         key={index}
-                                        userId={authUser.id}
+                                        userId={authUser.userId}
                                         postEntity={post}
                                         refetch={refetchAllPosts}
                                         userLikedPostsResult={userLikedPostsResult}
@@ -166,7 +166,7 @@ export default function ProfilePageTabs({ authUser,
                                 likedPosts.map((like, index) => (
                                 <PostCard
                                     key={index}
-                                    userId={authUser.id}
+                                    userId={authUser.userId}
                                     postEntity={like} 
                                     refetch={refetchAllPosts}
                                     userLikedPostsResult={userLikedPostsResult}

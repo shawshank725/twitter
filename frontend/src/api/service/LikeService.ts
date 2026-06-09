@@ -4,6 +4,7 @@ import type { NewLikeEntity } from '@/types/Likes/NewLikeEntity';
 import type { LikeEntity } from '@/types/Likes/LikeEntity';
 
 export async function addLike(newLikeEntity: NewLikeEntity){
+    console.log(newLikeEntity);
     return await axios.post(
         `${SPRING_BOOT_LOCALHOST}/like/addLike`, 
         newLikeEntity,
