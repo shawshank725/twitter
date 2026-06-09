@@ -25,7 +25,7 @@ export async function generateFollowSuggestions(userId: number):Promise<AxiosRes
 
 export async function getSearchResult( input: string ): Promise<AxiosResponse<SearchResult>> {
   return await axios.get(
-    `${SPRING_BOOT_LOCALHOST}/timeline/getSearchResults`,
+    `${SPRING_BOOT_LOCALHOST}/timeline/getSearchResult`,
     {
         withCredentials: true,
       params: { input }

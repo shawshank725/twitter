@@ -51,7 +51,7 @@ export default function ProfilePage() {
     // const {ref: editModalRef} = useOutsideAlerter<HTMLDivElement>(setShowEditModal, undefined);
 
 
-    const userId = userInfo?.id ?? -1;
+    const userId = userInfo?.userId ?? -1;
     const {data: userPostQueryData, isLoading: isUserPostLoading, refetch: refetchPosts}= useGetPosts(userId);
 
     const {data: userConnectionQueryData, refetch: refetchConnections}= useGetUserConnections(userId);
@@ -60,10 +60,10 @@ export default function ProfilePage() {
 
     const dto = userConnectionQueryData?.data;
     const idNumbers: FollowerFolloweeNumbers | null = dto ? extractIdsFromDTO(dto) : null;
-    const isFollowing = idNumbers?.follower.includes(authUser?.id ?? -1);
+    const isFollowing = idNumbers?.follower.includes(authUser?.userId ?? -1);
 
-    const userLikedPostsResult = useGetPostLikesByUser(authUser?.id!);
-    const userBookmarkedPostResult = useGetUsersBookmarks(authUser?.id!);
+    const userLikedPostsResult = useGetPostLikesByUser(authUser?.userId!);
+    const userBookmarkedPostResult = useGetUsersBookmarks(authUser?.userId!);
     const {data: userLikedPostEntities} = useGetLikedPosts(userId);
 
     const navigate = useNavigate();
@@ -198,7 +198,7 @@ export default function ProfilePage() {
                             isFollowing ? (
                                 <button className="unfollowButton" onClick={ async()=> {
                                     try {
-                                        const result = await UnfollowUser(userId, authUser.id);
+                                        const result = await UnfollowUser(userId, authUser.userId);
                                         console.log(result);
                                         toast(`Unfollowed ${username}`);
                                         refetchConnections();
@@ -210,7 +210,7 @@ export default function ProfilePage() {
                             ) : (
                                 <button className="followButton" onClick={async()=> {
                                     try {
-                                        const result = await FollowUser(userId, authUser.id);
+                                        const result = await FollowUser(userId, authUser.userId);
                                         console.log(result);
                                         toast(`Followed ${username}`);
                                         refetchConnections();

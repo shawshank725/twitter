@@ -17,7 +17,7 @@ export default function ConnectionPage() {
     const { connectionType } = useParams<{ connectionType: string }>();
 
     const { data: userInfo } = useGetUserInfoFromUsername(username!);
-    const userId = userInfo?.data?.id ?? -1;
+    const userId = userInfo?.data?.userId ?? -1;
     
     const {data: userConnectionQueryData}= useGetUserConnections(userId);
     const followers = userConnectionQueryData?.data.followerList;

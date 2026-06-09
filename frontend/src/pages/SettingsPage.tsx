@@ -12,7 +12,7 @@ export default function SettingsPage() {
     useEffect(() => { document.title = "Settings" }, []);
     const navigate = useNavigate();
 
-    const { session } = useAuth();
+    const { session, setSession } = useAuth();
     const authUser = session.user;
     const usernameOld = authUser?.username ?? "";
     const [username, setUsername] = useState<string>(usernameOld);
@@ -93,14 +93,14 @@ export default function SettingsPage() {
     async function deleteAccount() {
         try {
             if (authUser && passwordForDeleting) {
-                const deletingPostsResult = await deleteAllUsersPosts(authUser.id);
+                const deletingPostsResult = await deleteAllUsersPosts(authUser.userId);
                 console.log(deletingPostsResult);
                 if (deletingPostsResult.data === "success") {
                     const deletingAccountResult = await deleteUserAccount(authUser.username, passwordForDeleting);
-                    console.log("THIS ISTHE ACCOUTN RESULT - ", deletingAccountResult);
+                    console.log("THIS ISTHE ACCOUNT RESULT - ", deletingAccountResult);
                     if (deletingAccountResult.data === "success") {
-                        localStorage.removeItem("authToken");
-                        navigate("/register");
+                        setSession({user: null, isLoggedIn: false});
+                        navigate("/auth");
                         toast("Your account has been deleted successfully.");
                     } else if (deletingAccountResult.data === "failure: incorrect password") {
                         toast("Incorrect password. Account not deleted.");

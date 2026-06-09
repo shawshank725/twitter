@@ -79,7 +79,7 @@ export default function SearchPage() {
                     {query === "" ? ("Explore") : (`Search Results for: "${query}"`)}
                 </span>
             </div>
-            <SearchField />
+            <SearchField searchInput={query}/>
             {
                 query === "" && <p style={{fontStyle:"italic", textAlign:'center', color:'grey'}}>Search something</p>
             }

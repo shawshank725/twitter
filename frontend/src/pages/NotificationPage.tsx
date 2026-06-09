@@ -14,7 +14,7 @@ export default function NotificationPage() {
     const { session } = useAuth();
     const authUser = session.user;
     const navigate = useNavigate();
-    const userId = authUser?.id ?? 0;
+    const userId = authUser?.userId ?? 0;
     const { data: userNotifications, isLoading: isLoadingNotifications } = useGetUserNotifications(userId);
 
     useEffect(() => {

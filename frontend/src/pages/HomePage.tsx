@@ -13,7 +13,7 @@ export default function HomePage() {
   useEffect(() => { document.title = "Home" }, []);
   const { session } = useAuth();
   const authUser = session.user;
-  const {data: timeline} = useGenerateTimeline(authUser?.id ?? 0);
+  const {data: timeline} = useGenerateTimeline(authUser?.userId ?? 0);
   const [posts, setPosts] = useState<AxiosResponse<PostEntity, any>[]>([]);
 
   useEffect(() => {

@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 export default function Layout() {
   const { session } = useAuth();
   const authUser = session.user;
-  const { data: suggestions, refetch: refetchSuggestions } = useGenerateFollowSuggestions(authUser?.id ?? 0);
+  const { data: suggestions, refetch: refetchSuggestions } = useGenerateFollowSuggestions(authUser?.userId ?? 0);
   const [users, setUsers] = useState<User[]>();
   const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ export default function Layout() {
                         e.stopPropagation();
                         if (authUser) {
                           try {
-                            const result = await FollowUser(user.id, authUser.id);
+                            const result = await FollowUser(user.userId, authUser.userId);
                             console.log(result);
                             toast(`Followed ${user.username}`);
                             await refetchSuggestions();

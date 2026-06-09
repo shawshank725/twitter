@@ -14,9 +14,9 @@ export default function BookmarksPage() {
     const authUser = session.user;
     const navigate = useNavigate();
     
-    const userLikedPostsResult = useGetPostLikesByUser(authUser?.id!);
-    const userBookmarkedPostsResult = useGetUsersBookmarks(authUser?.id!);
-    const {data: bookmarks} = useGetBookmarkPosts(authUser?.id!);
+    const userLikedPostsResult = useGetPostLikesByUser(authUser?.userId!);
+    const userBookmarkedPostsResult = useGetUsersBookmarks(authUser?.userId!);
+    const {data: bookmarks} = useGetBookmarkPosts(authUser?.userId!);
     
     useEffect(() => {
         if (authUser) {
@@ -38,7 +38,7 @@ export default function BookmarksPage() {
             {
                 authUser && bookmarks?.length! > 0 && (
                     bookmarks?.map((bookmarkPost: PostEntity) => (
-                        <PostCard userId={authUser.id} 
+                        <PostCard userId={authUser.userId} 
                         postEntity={bookmarkPost} 
                         userLikedPostsResult={userLikedPostsResult}
                         userBookmarkedPostsResult={userBookmarkedPostsResult} />

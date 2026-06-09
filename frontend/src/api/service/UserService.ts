@@ -3,9 +3,6 @@ import type { NewUser } from '@/types/Users/NewUser';
 import type { LoginUser } from '@/types/Users/LoginUser';
 import type { User } from '@/types/Users/User';
 import  { SPRING_BOOT_LOCALHOST } from '@constants/MiscConstants';
-const AuthService = "authentication-service";
-const RegisterEndpoint = "register";
-
 
 export const usernameAvailable = async (username: string): Promise<boolean> => {
     try {
@@ -61,7 +58,7 @@ export async function getUserByUsername(username:string){
 }
 
 export async function getUserByUserId(userId: number): Promise<AxiosResponse<User>>{
-    return await axios.get(`${SPRING_BOOT_LOCALHOST}/${AuthService}/${RegisterEndpoint}/getUserByUserId`,{
+    return await axios.get(`${SPRING_BOOT_LOCALHOST}/user/getUserByUserId`,{
         params: { userId },
         withCredentials: true
     });

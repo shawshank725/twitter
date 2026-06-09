@@ -49,13 +49,13 @@ export default function PostViewerPage() {
     const {data : userEntity} = useGetUserInfoFromId(originalPosterId);
     const {data: postReplies, refetch: refetchPostReplies } = useGetRepliesToPost(postIdNumber);
 
-    const userLikedPostsResult = useGetPostLikesByUser(authUser?.id!);
+    const userLikedPostsResult = useGetPostLikesByUser(authUser?.userId!);
     const userHasLikedPost = hasUserLikedPost(userLikedPostsResult?.data?.data, postIdNumber);
     const {data: postLikesCount, refetch: refetchPostLikesCount} = useGetPostLikesCount(postIdNumber);
     const likesCount = postLikesCount ?? 0;
 
-    const userBookmarkedPostsResult = useGetUsersBookmarks(authUser?.id!);
-    const userHasBookmarkedPost = hasUserBookmarkedPost(userBookmarkedPostsResult?.data?.data, authUser?.id!, postIdNumber);
+    const userBookmarkedPostsResult = useGetUsersBookmarks(authUser?.userId!);
+    const userHasBookmarkedPost = hasUserBookmarkedPost(userBookmarkedPostsResult?.data?.data, authUser?.userId!, postIdNumber);
     const {data: postBookmarksCount, refetch: refetchPostBookmarksCount} = useGetPostBookmarkCount(postIdNumber);
     const bookmarksCount = postBookmarksCount?.data ?? 0;
 

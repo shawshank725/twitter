@@ -25,13 +25,12 @@ function App() {
   const {session, isLoading } = useAuth();
   const authUser = session.user;
 
-
   if (isLoading) return <div>Loading...</div>;
   useEffect(()=> {
     if (authUser) {
       connectSocket(() => {
-        console.log(`Subscribing to notifications for user ID: ${authUser.id}`);
-        subscribeToNotifications(authUser.id);
+        console.log(`Subscribing to notifications for user ID: ${authUser.userId}`);
+        subscribeToNotifications(authUser.userId);
       });
     } else {
       console.log("No authUser or token, skipping WebSocket connection");
