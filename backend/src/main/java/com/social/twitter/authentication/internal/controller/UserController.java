@@ -42,14 +42,14 @@ public class UserController {
         return UserToDtoMapper.userToDTOMapper(user);
     }
 
-    @PostMapping("usernameAvailable")
-    public boolean usernameAvailable(@RequestBody String username){
+    @GetMapping("usernameAvailable")
+    public boolean usernameAvailable(@RequestParam String username){
         User user = userService.getUserByUsername(username);
         return user == null;
     }
 
-    @PostMapping("emailAvailable")
-    public boolean emailAvailable(@RequestBody String email){
+    @GetMapping("emailAvailable")
+    public boolean emailAvailable(@RequestParam String email){
         User user = userService.getUserByEmail(email);
         return user == null;
     }

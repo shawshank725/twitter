@@ -24,14 +24,11 @@ export const handleLogout = async () => {
 
 export const usernameAvailable = async (username: string): Promise<boolean> => {
     try {
-        const response = await axios.post(
+        const response = await axios.get(
             `${SPRING_BOOT_LOCALHOST}/user/usernameAvailable`,
-            username,
             {
+                params: { username },
                 withCredentials: true,
-                headers: {
-                    "Content-Type": "application/json",
-                }
             }
         );
 
@@ -44,14 +41,11 @@ export const usernameAvailable = async (username: string): Promise<boolean> => {
 
 export const emailAvailable = async (email: string): Promise<boolean> => {
     try {
-        const response = await axios.post(
+        const response = await axios.get(
             `${SPRING_BOOT_LOCALHOST}/user/emailAvailable`,
-            email,
             {
+                params: { email },
                 withCredentials: true,
-                headers: {
-                    "Content-Type": "application/json",
-                }
             }
         );
 
@@ -85,7 +79,9 @@ export async function getUserByUserId(userId: number): Promise<AxiosResponse<Use
 
 //REGISTERING NEW USER
 export async function handleRegister(newUser: NewUser){
-    return await axios.post(`${SPRING_BOOT_LOCALHOST}/auth/register`, newUser );
+    return await axios.post(`${SPRING_BOOT_LOCALHOST}/auth/register`, newUser, {
+        withCredentials: true
+    }  );
 }
 
 

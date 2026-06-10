@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import '@styles/pages-styles/RegisterPage.css';
 import { backgroundPhotoUrlConstant, profilePhotoUrlConstant } from '@constants/PhotoUrls';
 import type { User } from '@/types/Users/User';
+import { TextField } from '@mui/material';
 
 
 const RegisterPage = () => {
@@ -44,41 +45,49 @@ const RegisterPage = () => {
         setIsDisabled(true);
         const currentDate = new Date().toISOString().split("T")[0];
 
-        const isEmailAvailable = await emailAvailable(newUser.email);
-        const isUserAvailable = await usernameAvailable(newUser.username);
+        const isEmailAvailable = await emailAvailable(newUser.email.trim());
+        const isUserAvailable = await usernameAvailable(newUser.username.trim());
+        console.log(isEmailAvailable);
+        console.log(isUserAvailable);
 
         if (isEmailAvailable == false) {
             setError("Email already taken.");
+            setIsDisabled(false);
             return;
         }
         if (isUserAvailable == false) {
             setError("Username already taken.");
+            setIsDisabled(false);
             return;
         }
-        if (!validatePassword(newUser.password)) {
+        if (!validatePassword(newUser.password.trim())) {
             setError("Password must contain uppercase, lowercase, number, and special character, and be 8-20 characters long.");
+            setIsDisabled(false);
             return;
         }
 
         const user: User = {
-            username: newUser.username,
-            name: newUser.name,
-            email: newUser.email,
+            username: newUser.username.trim(),
+            name: newUser.name.trim(),
+            email: newUser.email.trim(),
             password: newUser.password,
             backgroundPhoto: backgroundPhotoUrlConstant,
             profilePhoto: profilePhotoUrlConstant,
             joinedDate: currentDate,
-            id: 0,
+            userId: 0,
             bio: null,
             website: null,
             location: null,
             role: ''
         };
+
+        console.log(user);
+
         setError("");
         const response = await handleRegister(user);
+        console.log(response);
         if (response.data == "success") {
-            console.log("the registration response is " + response);
-            toast("You have registered successfully.", );
+            toast("You have registered successfully.",);
             navigate("/auth", { replace: true });
         }
         else {
@@ -92,72 +101,64 @@ const RegisterPage = () => {
             <div className="formContainer">
                 <p className='createAccountHeading'>Create your account</p>
                 <form className="form" onSubmit={handleSubmit}>
-                    <div className='formTableContainer'>
-                        <table>
-                        <tbody>
-                            <tr>
-                                <td><label htmlFor='username' className='label'>Username:</label></td>
-                                <td>
-                                    <input
-                                        type='text'
-                                        id='username'
-                                        name='username'
-                                        className='inputField'
-                                        value={newUser.username}
-                                        onChange={handleChange}
-                                    />
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td><label htmlFor='name' className='label'>Name:</label></td>
-                                <td>
-                                    <input
-                                        type='text'
-                                        id='name'
-                                        name='name'
-                                        className='inputField'
-                                        value={newUser.name}
-                                        onChange={handleChange}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label htmlFor='email' className='label'>Email:</label></td>
-                                <td>
-                                    <input
-                                        type='email'
-                                        id='email'
-                                        name='email'
-                                        className='inputField'
-                                        value={newUser.email}
-                                        onChange={handleChange}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label htmlFor='password' className='label'>Password:</label></td>
-                                <td>
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        id='password'
-                                        name='password'
-                                        className='inputField'
-                                        value={newUser.password}
-                                        onChange={handleChange}
-                                    />
-                                    <input type='checkbox' checked={showPassword} onChange={togglePassword} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className='textfieldsContainer'>
+                        <TextField type='text' label="Username"
+                            id='username'
+                            name='username'
+                            value={newUser.username}
+                            onChange={handleChange} className='usernameTextField' />
+
+                        <TextField type='text' label="Name"
+                            id='name'
+                            name='name'
+                            value={newUser.name}
+                            onChange={handleChange} className='usernameTextField' />
+
+                        <TextField type='text' label="Email"
+                            id='email'
+                            name='email'
+                            value={newUser.email}
+                            onChange={handleChange} className='usernameTextField' />
+                        <div className='passwordContainer'>
+                            <div className='passwordWrapper'>
+                                <TextField
+                                    type={showPassword ? 'text' : 'password'}
+                                    label="Password"
+                                    id='password'
+                                    name='password'
+                                    value={newUser.password}
+                                    onChange={handleChange}
+                                    className='passwordTextField'
+                                    fullWidth
+                                />
+                                <input
+                                    type='checkbox'
+                                    className='checkboxInput'
+                                    checked={showPassword}
+                                    onChange={togglePassword}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <div className='buttonContainer'>
-                        <div style={{display: 'flex',justifyContent:'center', alignItems:'center'}}>
-                            <button className='submitButton'disabled={isDisabled || !isFormValid} type="submit">Create Account</button>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <button className='submitButton' disabled={isDisabled || !isFormValid} type="submit">Create Account</button>
                         </div>
                     </div>
+
+                    <p
+                        style={{
+                            color: "red",
+                            width: "200px",
+                            textAlign: "center",
+                            justifySelf: 'center',
+                            wordBreak: "break-word",
+                            overflowWrap: "break-word"
+                        }}
+                    >
+                        {error}
+                    </p>
                 </form>
             </div>
         </div>

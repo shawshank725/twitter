@@ -85,8 +85,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/emailAvailable").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/usernameAvailable").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/emailAvailable").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/usernameAvailable").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
