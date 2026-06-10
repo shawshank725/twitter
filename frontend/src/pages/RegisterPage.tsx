@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import '@styles/pages-styles/RegisterPage.css';
-import { backgroundPhotoUrlConstant, profilePhotoUrlConstant } from '@constants/PhotoUrls';
-import type { User } from '@/types/Users/User';
 import { TextField } from '@mui/material';
 
 
@@ -43,7 +41,6 @@ const RegisterPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsDisabled(true);
-        const currentDate = new Date().toISOString().split("T")[0];
 
         const isEmailAvailable = await emailAvailable(newUser.email.trim());
         const isUserAvailable = await usernameAvailable(newUser.username.trim());
@@ -66,26 +63,19 @@ const RegisterPage = () => {
             return;
         }
 
-        const user: User = {
+        const user: NewUser = {
             username: newUser.username.trim(),
             name: newUser.name.trim(),
             email: newUser.email.trim(),
-            password: newUser.password,
-            backgroundPhoto: backgroundPhotoUrlConstant,
-            profilePhoto: profilePhotoUrlConstant,
-            joinedDate: currentDate,
-            userId: 0,
-            bio: null,
-            website: null,
-            location: null,
-            role: ''
+            password: newUser.password
         };
 
         console.log(user);
-
+        
         setError("");
         const response = await handleRegister(user);
-        console.log(response);
+        console.log("this is the fucking response: " + response);
+
         if (response.data == "success") {
             toast("You have registered successfully.",);
             navigate("/auth", { replace: true });

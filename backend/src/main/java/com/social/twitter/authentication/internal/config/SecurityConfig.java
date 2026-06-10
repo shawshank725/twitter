@@ -16,14 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @EnableWebSecurity
@@ -32,21 +29,6 @@ import java.util.List;
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
-
-//    @Bean
-//    public UserDetailsManager userDetailsManager(DataSource dataSource) {
-//        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-//
-//        manager.setUsersByUsernameQuery(
-//                "SELECT username, password, enabled FROM users WHERE username = ?"
-//        );
-//
-//        manager.setAuthoritiesByUsernameQuery(
-//                "SELECT username, 'USER' as role_id FROM users WHERE username = ?"
-//        );
-//
-//        return manager;
-//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -101,6 +83,5 @@ public class SecurityConfig {
                                 res.setStatus(HttpServletResponse.SC_OK))
                 )
                 .build();
-
     }
 }

@@ -61,8 +61,7 @@ public class UserController {
 
     @PostMapping("/updateUserProfile")
     public User updateUserProfile(@RequestBody User User) {
-        User savedUser = userService.saveUser(User);
-        return savedUser;
+        return userService.updateUser(User);
     }
 
     @GetMapping("/getUserByUserId")

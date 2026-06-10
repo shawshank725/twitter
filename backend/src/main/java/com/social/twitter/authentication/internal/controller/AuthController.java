@@ -31,20 +31,14 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid User user) {
-        RegistrationRequest request = new RegistrationRequest(
-                user.getUsername(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getName()
-        );
+    public ResponseEntity<String> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
 
-        ResponseEntity<String> validationResponse = validateAccount(request);
+        ResponseEntity<String> validationResponse = validateAccount(registrationRequest);
         if (validationResponse.getStatusCode() != HttpStatus.OK) {
             return validationResponse;
         }
         try {
-            User savedUser = userService.saveUser(user);
+            User savedUser = userService.addUser(registrationRequest);
             return ResponseEntity.ok("success");
         }
         catch (Exception e) {

@@ -1,8 +1,8 @@
 import axios, { type AxiosResponse } from 'axios';
-import type { NewUser } from '@/types/Users/NewUser';
 import type { LoginUser } from '@/types/Users/LoginUser';
 import type { User } from '@/types/Users/User';
 import  { SPRING_BOOT_LOCALHOST } from '@constants/MiscConstants';
+import type { NewUser } from '@/types/Users/NewUser';
 
 
 export const handleLogout = async () => {
@@ -78,10 +78,23 @@ export async function getUserByUserId(userId: number): Promise<AxiosResponse<Use
 
 
 //REGISTERING NEW USER
-export async function handleRegister(newUser: NewUser){
-    return await axios.post(`${SPRING_BOOT_LOCALHOST}/auth/register`, newUser, {
-        withCredentials: true
-    }  );
+export async function handleRegister(newUser: NewUser) {
+    
+    try {
+        return await axios.post(
+            `${SPRING_BOOT_LOCALHOST}/auth/register`,
+            newUser, 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        );
+    } catch (err: any) {
+        console.error(err);
+        throw err;
+    }
 }
 
 

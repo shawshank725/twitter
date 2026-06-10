@@ -23,7 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "baseUrl": "./",
+    // "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
       "@api/*": ["./src/api/*"],
@@ -32,7 +32,7 @@
       "@constants/*": ["./src/constants/*"],
       "@context/*": ["./src/context/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@methods/*": ["src/methods/*"],
+      "@methods/*": ["./src/methods/*"],
       "@pages/*": ["./src/pages/*"],
       "@socket/*": ["./src/socket/*"],
       "@styles/*": ["./src/styles/*"],

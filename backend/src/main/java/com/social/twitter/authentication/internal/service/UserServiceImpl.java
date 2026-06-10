@@ -1,6 +1,7 @@
 package com.social.twitter.authentication.internal.service;
 
 import com.social.twitter.authentication.UserService;
+import com.social.twitter.authentication.dto.RegistrationRequest;
 import com.social.twitter.authentication.entity.Role;
 import com.social.twitter.authentication.entity.User;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
@@ -35,9 +36,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User addUser(RegistrationRequest registrationRequest) {
+        User user = new User();
+        user.setEmail(registrationRequest.email());
+        user.setUsername(registrationRequest.username());
+        user.setName(registrationRequest.name());
+        user.setPassword(passwordEncoder.encode(registrationRequest.password()));
         user.setProfilePhoto(DEFAULT_PROFILE_PHOTO);
         user.setBackgroundPhoto(DEFAULT_BACKGROUND_PHOTO);
         user.setEnabled(true);
@@ -49,6 +53,11 @@ public class UserServiceImpl implements UserService {
 
         Role userRole = roleRepository.findByRoleName("ROLE_USER");
         user.setRole(userRole);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(User user) {
         return userRepository.save(user);
     }
 
