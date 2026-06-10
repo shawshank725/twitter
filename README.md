@@ -32,34 +32,156 @@ Frontend
 ```
 ---
 
+<h2>Architecture Comparison</h2>
 
-## 🛠 Setup & Running Instructions
-
-### 1️Start Consul Server
-```bash
-consul agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=0.0.0.0
-```
-Access UI at: [http://localhost:8500](http://localhost:8500)
-
-### 2️Start Backend Services
-**Order to start:**
-1. Config Service
-2. Gateway Service
-3. Authentication / Posting / Media / Connection / Timeline / Notification services
-
-### 3️Start Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Now the app will be available locally.
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Microservices Version</th>
+      <th>Modulith Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Number of Services</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Source Files</td>
+      <td>256</td>
+      <td>204</td>
+    </tr>
+    <tr>
+      <td>Lines of Code</td>
+      <td>15,556</td>
+      <td>14,693</td>
+    </tr>
+    <tr>
+      <td>Inter-Service Communication</td>
+      <td>REST API Calls</td>
+      <td>In-Process Calls</td>
+    </tr>
+    <tr>
+      <td>API Calls Between Components</td>
+      <td>Higher</td>
+      <td>Lower</td>
+    </tr>
+    <tr>
+      <td>Deployment Units</td>
+      <td>8 Services</td>
+      <td>1 Application</td>
+    </tr>
+    <tr>
+      <td>Operational Complexity</td>
+      <td>Higher</td>
+      <td>Lower</td>
+    </tr>
+    <tr>
+      <td>Local Development Setup</td>
+      <td>More Complex</td>
+      <td>Simpler</td>
+    </tr>
+    <tr>
+      <td>Debugging</td>
+      <td>Distributed</td>
+      <td>Centralized</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
-## Database Setup
-- NeonDB (PostgreSQL) is used instead of local MySQL.
-- Update credentials in environment variables before running.
+## Prerequisites
+
+- Java 21
+- Node.js
+- MySQL Server
+- MySQL Workbench
+- Cloudinary Account
+- Giphy API Key
+
+---
+
+
+### 1. Fork or Clone the Repository
+
+```bash
+git clone <repository-url>
+cd <repository-name>
+```
+
+### 2. Set Up the Database
+
+1. Install MySQL Server and MySQL Workbench.
+2. Open the `sql-scripts` folder.
+3. Execute all SQL scripts one by one.
+4. By default, the application uses a database named `twitter`.
+
+If you change the database name, make sure to update both:
+- The SQL scripts
+- `application.properties`
+
+### 3. Set Up the Frontend
+
+Open the `frontend` folder in VS Code (or any preferred code editor).
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file inside the `frontend` directory:
+
+```env
+GIPHY_API=your_giphy_api_key
+```
+
+### 4. Set Up the Backend
+
+Open the `backend` folder in IntelliJ IDEA (recommended) or another Java IDE.
+
+Import the project and allow Maven to download all dependencies.
+
+Create a `.env` file in the root of the `backend` directory:
+
+```env
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+Open `application.properties` and configure your database credentials:
+
+```properties
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.datasource.url=jdbc:mysql://localhost:3306/twitter
+```
+
+### 5. Run the Backend
+
+Start the Spring Boot application from your IDE.
+
+### 6. Run the Frontend
+
+From the `frontend` directory:
+
+```bash
+npm run dev
+```
+
+### 7. Register an Account
+
+Open:
+
+```text
+http://localhost:5173/auth
+```
+
+Create an account and start using the application.
 
 ---
 
@@ -87,82 +209,48 @@ Now the app will be available locally.
 
 🔹 **Change Username**  
 - Check backend if new username is already taken.  
-- Show ✅ (green tick) if available, ❌ (red cross) if not.  
+- Show green tick if available, red cross if not.  
 - Backend endpoint validates & updates.  
 
 ---
 
 ## Added Features & Fixes
-1. Posting  
-2. Replying to a post  
-3. Liking, bookmarking  
-4. Viewing posts in profile & bookmarks  
-5. Editing profile  
-6. Post modal (pop-up)  
-7. Custom photo viewer with close option  
-8. Logout  
-9. Follow / unfollow system  
-10. Delete posts  
-11. View parent post  
-12. Delete notifications (optional)  
-13. All kinds of notifications  
-14. Quote retweets (post card & viewer)  
-15. Added tabs  
-16. Fixed profile header with back button  
-17. Make posts clickable properly  
-18. User-friendly messages (no bookmarks, no notifications etc.)  
-19. Imports fixed (path aliasing + project restructure)  
-20. Remove profile photo / background photo option  
-21. Quote retweets count & UI fixes  
-22. Fixed z-index layering order  
-23. Profile photo cropping (React Easy Crop)  
-24. Corrected date formatting  
-25. Timeline implemented  
-26. Fixed edit modal (emoji, giphy close on outside click)  
-27. Fixed sidebar user profile container  
-28. Added view profile button in sidebar  
-29. Fixed likes tab  
-30. Added settings page  
-31. Added search functionality  
-32. Likes are private  
-33. Delete account feature  
-34. Username validation (no special symbols like `!?/.,><+=` etc.; only letters, digits, emojis, underscore allowed)  
-35. Password validation rules  
-36. User joined date displayed  
-37. Proper formatting for post text  
-38. Quote retweets count displayed  
+1. User authentication, logout, account deletion, and password validation
+2. Create, reply to, delete, like, bookmark, and quote-retweet posts
+3. Personalized timeline with profile posts, bookmarks, and private likes
+4. Follow / unfollow system
+5. Notification system for likes, follows, replies, and quote retweets
+6. User profile management with profile editing, photo cropping, profile/background photo removal, joined date display, and username validation
+7. Advanced post viewing with parent post navigation, post modal, clickable posts, quote-retweet viewer, and custom photo viewer
+8. Search functionality
+9. Settings page
+10. Tab-based navigation and improved profile layout
+11. Rich post formatting and improved date formatting
+12. Enhanced user experience through empty-state messages, UI fixes, sidebar improvements, and project restructuring
 
 ---
 ## Screenshots
 
-### Home Page
-![Home Page](./output/home%20page.png)
+<h3>Home Page & Profile Page</h3>
 
-### Responsive Profile Page
-![Responsive Profile Page](./output/responsive%20profile%20page.png)
+<p>
+  <img src="./output/home%20page.png" width="49%">
+  <img src="./output/responsive%20profile%20page.png" width="49%">
+</p>
 
-### Settings
-![Settings](./output/settings.png)
+<h3>Settings & Likes</h3>
 
-### Likes
-- Likes are anonymous  
-![Likes are Anonymous](./output/likes%20are%20anonymous.png)
+<p>
+  <img src="./output/settings.png" width="49%">
+  <img src="./output/likes%20tab.png" width="49%">
+</p>
 
-- Likes Tab  
-![Likes Tab](./output/likes%20tab.png)
+<h3>Notifications</h3>
 
-### Notifications
-- Follow Notifications  
-![Follow Notifications](./output/follow%20notifications.png)
-
-- Mention Notifications  
-![Mention Notifications](./output/mention%20notifications.png)
-
-- Following Toast Message  
-![Following Toast Message](./output/following%20toast%20message.png)
-
-### Quote Retweet
-![Quote Retweeting a Post](./output/quote%20retweeting%20a%20post.png)
+<p>
+  <img src="./output/follow%20notifications.png" width="49%">
+  <img src="./output/mention%20notifications.png" width="49%">
+</p>
 
 ---
 
