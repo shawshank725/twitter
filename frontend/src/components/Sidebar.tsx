@@ -28,6 +28,9 @@ import { UserIcon as UserIconSolid }   from "@heroicons/react/24/solid";
 
 import { MagnifyingGlassCircleIcon as ExploreIconOutline } from "@heroicons/react/24/outline";
 import { MagnifyingGlassCircleIcon as ExploreIconSolid }   from "@heroicons/react/24/solid";
+import { useAuth } from '@/context/AuthContext';
+import { handleLogout } from '@/api/service/UserService';
+import { disconnectSocket } from '@/socket/SocketClient';
 
 
 
@@ -39,6 +42,7 @@ type UserInfoProp = {
 export default function Sidebar({userInfo}: UserInfoProp) {
     const [showDialogBox, setShowDialogBox] = useState<boolean>(false);
     const [showPostModal, setShowPostModal] = useState<boolean>(false);
+    const {setSession } = useAuth();
 
     const {ref: postModalRef} = useOutsideAlerter<HTMLDivElement>(setShowPostModal, undefined);
 
@@ -47,8 +51,10 @@ export default function Sidebar({userInfo}: UserInfoProp) {
     
     const { data: unreadNotificationsCount } = useGetUnreadNotificationsCount(userInfo?.userId ?? 0);
 
-    const logout =() => {
-        localStorage.removeItem("authToken");
+    const logout = async() => {
+        await handleLogout();
+        disconnectSocket();
+        setSession({isLoggedIn: false, user: null});
         navigate("/auth", {replace: true});
         toast("Logout successful!");
     }

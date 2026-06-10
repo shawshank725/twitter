@@ -20,6 +20,15 @@ export function connectSocket(onConnected?: () => void) {
   );
 }
 
+export function disconnectSocket() {
+    if (socketClient) {
+        socketClient.disconnect(() => {
+            console.log("WebSocket disconnected");
+            socketClient = null;
+        });
+    }
+}
+
 export function getSocketClient() {
   return socketClient;
 }

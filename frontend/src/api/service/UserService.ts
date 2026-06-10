@@ -4,6 +4,24 @@ import type { LoginUser } from '@/types/Users/LoginUser';
 import type { User } from '@/types/Users/User';
 import  { SPRING_BOOT_LOCALHOST } from '@constants/MiscConstants';
 
+
+export const handleLogout = async () => {
+    try {
+        const response = await axios.post(
+            `${SPRING_BOOT_LOCALHOST}/auth/logout`,{},
+            {
+                withCredentials: true,
+            }
+        );
+
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
+
+
 export const usernameAvailable = async (username: string): Promise<boolean> => {
     try {
         const response = await axios.post(
