@@ -108,8 +108,8 @@ Frontend
 ### 1. Fork or Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/shawshank725/twitter
+cd twitter
 ```
 
 ### 2. Set Up the Database
