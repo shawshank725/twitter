@@ -1,4 +1,4 @@
-package com.social.twitter.authentication.entity;
+package com.social.twitter.authentication.internal.entity;
 
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {

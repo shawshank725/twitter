@@ -1,10 +1,10 @@
 package com.social.twitter.authentication.internal.service;
 
 import com.social.twitter.authentication.UserService;
-import com.social.twitter.authentication.dto.RegistrationRequest;
-import com.social.twitter.authentication.entity.Role;
-import com.social.twitter.authentication.entity.UpdatedUser;
-import com.social.twitter.authentication.entity.User;
+import com.social.twitter.authentication.internal.dto.RegistrationRequest;
+import com.social.twitter.authentication.internal.entity.Role;
+import com.social.twitter.authentication.internal.entity.UpdatedUser;
+import com.social.twitter.authentication.internal.entity.User;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
 import com.social.twitter.authentication.internal.repository.UserRepository;
 import jakarta.transaction.Transactional;

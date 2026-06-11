@@ -1,7 +1,7 @@
 package com.social.twitter.authentication.internal.service;
 
-import com.social.twitter.authentication.entity.User;
-import com.social.twitter.authentication.entity.UserPrincipal;
+import com.social.twitter.authentication.internal.entity.User;
+import com.social.twitter.authentication.internal.entity.UserPrincipal;
 import com.social.twitter.authentication.internal.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

@@ -1,7 +1,7 @@
 package com.social.twitter.authentication;
 
 
-import com.social.twitter.authentication.entity.Role;
+import com.social.twitter.authentication.internal.entity.Role;
 
 public interface RoleService  {
 

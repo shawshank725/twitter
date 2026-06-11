@@ -1,8 +1,8 @@
 package com.social.twitter.authentication.internal.controller;
 
-import com.social.twitter.authentication.dto.LoginRequest;
-import com.social.twitter.authentication.dto.RegistrationRequest;
-import com.social.twitter.authentication.entity.User;
+import com.social.twitter.authentication.internal.dto.LoginRequest;
+import com.social.twitter.authentication.internal.dto.RegistrationRequest;
+import com.social.twitter.authentication.internal.entity.User;
 import com.social.twitter.authentication.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

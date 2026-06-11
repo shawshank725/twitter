@@ -1,9 +1,9 @@
 package com.social.twitter.authentication.internal.controller;
 
-import com.social.twitter.authentication.entity.UpdatedUser;
-import com.social.twitter.authentication.entity.User;
-import com.social.twitter.authentication.entity.UserDTO;
-import com.social.twitter.authentication.entity.UserToDtoMapper;
+import com.social.twitter.authentication.internal.entity.UpdatedUser;
+import com.social.twitter.authentication.internal.entity.User;
+import com.social.twitter.authentication.internal.entity.UserDTO;
+import com.social.twitter.authentication.internal.entity.UserToDtoMapper;
 import com.social.twitter.authentication.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

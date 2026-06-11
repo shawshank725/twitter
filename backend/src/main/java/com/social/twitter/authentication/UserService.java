@@ -1,8 +1,8 @@
 package com.social.twitter.authentication;
 
-import com.social.twitter.authentication.dto.RegistrationRequest;
-import com.social.twitter.authentication.entity.UpdatedUser;
-import com.social.twitter.authentication.entity.User;
+import com.social.twitter.authentication.internal.dto.RegistrationRequest;
+import com.social.twitter.authentication.internal.entity.UpdatedUser;
+import com.social.twitter.authentication.internal.entity.User;
 
 import java.util.List;
 

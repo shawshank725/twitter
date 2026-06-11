@@ -1,4 +1,4 @@
-package com.social.twitter.authentication.dto;
+package com.social.twitter.authentication.internal.dto;
 
 public record RegistrationRequest(
         String username,

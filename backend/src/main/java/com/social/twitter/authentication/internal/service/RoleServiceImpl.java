@@ -1,7 +1,7 @@
 package com.social.twitter.authentication.internal.service;
 
 import com.social.twitter.authentication.RoleService;
-import com.social.twitter.authentication.entity.Role;
+import com.social.twitter.authentication.internal.entity.Role;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

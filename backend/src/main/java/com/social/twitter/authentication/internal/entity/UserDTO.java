@@ -1,4 +1,4 @@
-package com.social.twitter.authentication.entity;
+package com.social.twitter.authentication.internal.entity;
 
 
 import java.time.LocalDate;
