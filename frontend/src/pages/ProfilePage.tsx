@@ -25,6 +25,7 @@ import { useGetUsersBookmarks } from "@/api/query/BookmarksQueries";
 import { useGetPostLikesByUser, useGetLikedPosts } from "@/api/query/LikeQueries";
 import { useGetPosts } from "@/api/query/PostQueries";
 import { parseJoinedDate } from "@/methods/OtherMethods";
+import type { UpdatedUser } from "@/types/Users/UpdatedUser";
 
 
 export default function ProfilePage() {
@@ -134,11 +135,21 @@ export default function ProfilePage() {
             backgroundPhoto: backgroundPhotoUrl || editableUserInfo.backgroundPhoto,
         };
 
-        setEditableUserInfo(updatedUserInfo);
+        const updatedUser : UpdatedUser = {
+            userId: authUser!.userId,
+            name: updatedUserInfo.name,
+            bio: updatedUserInfo.bio,
+            website: updatedUserInfo.website,
+            profilePhoto: updatedUserInfo.profilePhoto,
+            backgroundPhoto: updatedUserInfo.backgroundPhoto,
+            location: updatedUserInfo.location
+        }
 
-        const savingUserResponse = await updateUserProfile(updatedUserInfo);
+        setEditableUserInfo(updatedUserInfo);
+        const savingUserResponse = await updateUserProfile(updatedUser);
+        console.log(savingUserResponse);
         if (savingUserResponse) {
-            setUserInfo(updatedUserInfo); // Update userInfo to reflect changes
+            setUserInfo(updatedUserInfo);
             setShowEditModal(false);
             navigate("/home", { replace: true });
             toast("Profile Updated!");

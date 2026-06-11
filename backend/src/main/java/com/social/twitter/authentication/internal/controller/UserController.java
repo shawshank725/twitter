@@ -1,5 +1,6 @@
 package com.social.twitter.authentication.internal.controller;
 
+import com.social.twitter.authentication.entity.UpdatedUser;
 import com.social.twitter.authentication.entity.User;
 import com.social.twitter.authentication.entity.UserDTO;
 import com.social.twitter.authentication.entity.UserToDtoMapper;
@@ -60,8 +61,8 @@ public class UserController {
     }
 
     @PostMapping("/updateUserProfile")
-    public User updateUserProfile(@RequestBody User User) {
-        return userService.updateUser(User);
+    public User updateUserProfile(@RequestBody UpdatedUser updatedUser) {
+        return userService.updateUser(updatedUser);
     }
 
     @GetMapping("/getUserByUserId")

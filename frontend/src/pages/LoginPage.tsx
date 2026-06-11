@@ -19,9 +19,7 @@ const LoginPage = () => {
         setError("");
         setIsDisabled(true);
     
-        console.log(user);
         const result = await handleLogin(user);
-        console.log(result);
         if (result.data === "success") {
             const userData = await getUserByUsername(user.username);
             setSession({ 
@@ -30,8 +28,8 @@ const LoginPage = () => {
             });
             navigate("/home", { replace: true });
         } else {
+            setIsDisabled(false);
             setError(result.data);
-            console.log(error);
         }
     };
 
@@ -81,6 +79,19 @@ const LoginPage = () => {
                     <div className='buttonContainer'>
                         <button className='submitButton' disabled={isDisabled} type="submit">Login</button>
                     </div>
+
+                    <p
+                        style={{
+                            color: "red",
+                            width: "200px",
+                            textAlign: "center",
+                            justifySelf: 'center',
+                            wordBreak: "break-word",
+                            overflowWrap: "break-word"
+                        }}
+                    >
+                        {error}
+                    </p>
                 </form>
             </div>
         </div>

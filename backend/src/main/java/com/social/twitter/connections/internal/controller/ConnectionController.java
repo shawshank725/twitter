@@ -19,7 +19,7 @@ public class ConnectionController {
 
     @PostMapping("/addConnection")
     public ConnectionEntity addConnection(@RequestBody ConnectionEntity connectionEntity){
-        System.out.println("Saving connection: " + connectionEntity.getFollowerId() + " " + connectionEntity.getFolloweeId());
+        //System.out.println("Saving connection: " + connectionEntity.getFollowerId() + " " + connectionEntity.getFolloweeId());
         return connectionService.addConnection(connectionEntity);
     }
 

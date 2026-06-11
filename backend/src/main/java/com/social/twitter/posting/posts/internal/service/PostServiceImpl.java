@@ -6,6 +6,7 @@ import com.social.twitter.notification.NotificationService;
 import com.social.twitter.notification.entity.NotificationEntity;
 import com.social.twitter.notification.enums.NotificationStatus;
 import com.social.twitter.notification.enums.NotificationType;
+import com.social.twitter.posting.posts.PostMediaService;
 import com.social.twitter.posting.posts.PostService;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.posting.posts.internal.entity.PostMediaEntity;
@@ -13,9 +14,7 @@ import com.social.twitter.posting.posts.internal.repository.PostMediaRepository;
 import com.social.twitter.posting.posts.internal.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -26,8 +25,8 @@ import java.util.*;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
-    private final PostMediaRepository postMediaRepository;
     private final UserService userService;
+    private final PostMediaRepository postMediaRepository;
     private final MediaService mediaService;
     private final NotificationService notificationService;
 
@@ -50,8 +49,7 @@ public class PostServiceImpl implements PostService {
                 }
             }
         }
-        for (String i: mentionedUsers){
-            String mentionedUsername = i;
+        for (String mentionedUsername: mentionedUsers){
             long mentionedUserId = userService.getUserByUsername(mentionedUsername).getUserId();
             if (mentionedUserId != 0 && mentionedUserId != postEntity.getUserId()) {
                 try {
@@ -68,7 +66,6 @@ public class PostServiceImpl implements PostService {
                 } catch (Exception e) {
                     log.error("Failed to send notification for mention: {}", mentionedUsername, e);
                 }
-
             }
         }
         if (postEntity.getQuotedPostId() !=null) {
@@ -136,7 +133,7 @@ public class PostServiceImpl implements PostService {
                     }
                 }
             }
-            //postMediaRepository.deleteAll(mediaEntityList);
+            postMediaRepository.deleteAll(mediaEntityList);
             postRepository.deleteById(postId);
             return "success";
         }

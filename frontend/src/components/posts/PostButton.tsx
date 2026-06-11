@@ -1,4 +1,4 @@
-import { FeatherIcon } from "@constants/FeatherIcon";
+import { FeatherIcon } from "@/components/posts/FeatherIcon";
 import "@styles/components-styles/posts/PostButton.css";
 
 type ButtonProp = {

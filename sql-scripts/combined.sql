@@ -54,8 +54,6 @@ set foreign_key_checks = 1;
 
 -- ===== create-bookmarks-table.sql =====
 
-use `twitter`;
-
 CREATE TABLE IF NOT EXISTS `bookmarks` (
 `bookmark_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `bookmarked_by_user_id` BIGINT NOT NULL,
@@ -66,7 +64,6 @@ UNIQUE (bookmarked_by_user_id, bookmarked_post_id)
 
 -- ===== create-follower-followee-table.sql =====
 
-use `twitter`;
 
 CREATE TABLE IF NOT EXISTS `connections` (
     connection_id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -88,8 +85,6 @@ CREATE TABLE IF NOT EXISTS `blocked_users` (
 
 -- ===== create-notifications-table.sql =====
 
-use `twitter`;
-
 create table if not exists `notifications` (
 	`notification_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `post_id` BIGINT DEFAULT NULL, 
@@ -105,8 +100,6 @@ create table if not exists `notifications` (
 );
 
 -- ===== create-posting-database-table.sql =====
-
-USE `twitter`;
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -141,12 +134,10 @@ CREATE TABLE IF NOT EXISTS `post_media` (
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ===== make-notification-deleting-trigger.sql =====
+
 
 
 -- ===== create-likes-table.sql =====
-
-use `twitter`;
 
 CREATE TABLE IF NOT EXISTS `likes` (
 `like_id` BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -159,7 +150,7 @@ FOREIGN KEY (`liked_post_id`) REFERENCES `posts`(`post_id`)
 ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-USE `twitter`;
+-- ===== make-notification-deleting-trigger.sql =====
 
 DELIMITER //
 

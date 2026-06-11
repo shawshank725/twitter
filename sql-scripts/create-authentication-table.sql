@@ -9,7 +9,7 @@ create table if not exists `users`(
   `location` varchar(30), 
   
   `password` varchar(60) NOT NULL,
-  `enabled` tinyint NOT NULL,
+  `enabled` boolean NOT NULL,
   `profile_photo` varchar(200) DEFAULT "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png",
   `background_photo` varchar(200) DEFAULT "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/2011-03-09-fort-du-lomont-10.jpg/800px-2011-03-09-fort-du-lomont-10.jpg",
   `joined_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP

@@ -57,17 +57,14 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
 
-    @Size(max = 200)
     @Column(name = "profile_photo")
     private String profilePhoto;
 
-    @Size(max = 200)
     @Column(name = "background_photo")
     private String backgroundPhoto;
 
     @Column(name = "joined_date", updatable = false, insertable = false)
     private LocalDate joinedDate;
-
 
     @OneToOne( fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",

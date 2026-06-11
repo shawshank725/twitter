@@ -3,6 +3,7 @@ package com.social.twitter.authentication.internal.service;
 import com.social.twitter.authentication.UserService;
 import com.social.twitter.authentication.dto.RegistrationRequest;
 import com.social.twitter.authentication.entity.Role;
+import com.social.twitter.authentication.entity.UpdatedUser;
 import com.social.twitter.authentication.entity.User;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
 import com.social.twitter.authentication.internal.repository.UserRepository;
@@ -57,8 +58,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public User updateUser(UpdatedUser updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(updatedUser.userId());
+        User userFromDatabase = optionalUser.orElse(null);
+
+        if (userFromDatabase != null){
+            userFromDatabase.setName(updatedUser.name());
+            userFromDatabase.setBackgroundPhoto(updatedUser.backgroundPhoto());
+            userFromDatabase.setProfilePhoto(updatedUser.profilePhoto());
+            userFromDatabase.setBio(updatedUser.bio());
+            userFromDatabase.setWebsite(updatedUser.website());
+            userFromDatabase.setLocation(updatedUser.location());
+            return userRepository.save(userFromDatabase);
+        }
+
+        return null;
     }
 
     @Override

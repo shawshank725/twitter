@@ -3,6 +3,7 @@ import type { LoginUser } from '@/types/Users/LoginUser';
 import type { User } from '@/types/Users/User';
 import  { SPRING_BOOT_LOCALHOST } from '@constants/MiscConstants';
 import type { NewUser } from '@/types/Users/NewUser';
+import type { UpdatedUser } from '@/types/Users/UpdatedUser';
 
 
 export const handleLogout = async () => {
@@ -106,7 +107,7 @@ export async function handleLogin(loginUser: LoginUser){
 }
 
 //UPDATING THE EXISTING USER
-export async function updateUserProfile(existingUser: User | null){
+export async function updateUserProfile(existingUser: UpdatedUser | null){
     return await axios.post(`${SPRING_BOOT_LOCALHOST}/user/updateUserProfile`, existingUser, {
         withCredentials: true
     } );

@@ -70,11 +70,9 @@ const RegisterPage = () => {
             password: newUser.password
         };
 
-        console.log(user);
         
         setError("");
         const response = await handleRegister(user);
-        console.log("this is the fucking response: " + response);
 
         if (response.data == "success") {
             toast("You have registered successfully.",);
