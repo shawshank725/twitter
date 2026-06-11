@@ -1,4 +1,4 @@
-package com.social.twitter.notification.websocket;
+package com.social.twitter.notification.internal.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

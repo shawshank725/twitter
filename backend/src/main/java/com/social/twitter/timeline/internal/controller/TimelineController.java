@@ -1,9 +1,9 @@
-package com.social.twitter.timeline.controller;
+package com.social.twitter.timeline.internal.controller;
 
 import com.social.twitter.authentication.UserService;
 import com.social.twitter.posting.posts.PostService;
-import com.social.twitter.timeline.entity.SearchResult;
-import com.social.twitter.timeline.service.TimelineService;
+import com.social.twitter.timeline.internal.entity.SearchResult;
+import com.social.twitter.timeline.internal.service.TimelineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

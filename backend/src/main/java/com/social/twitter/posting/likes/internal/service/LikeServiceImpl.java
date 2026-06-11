@@ -1,9 +1,9 @@
 package com.social.twitter.posting.likes.internal.service;
 
 import com.social.twitter.notification.NotificationService;
-import com.social.twitter.notification.entity.NotificationEntity;
-import com.social.twitter.notification.enums.NotificationStatus;
-import com.social.twitter.notification.enums.NotificationType;
+import com.social.twitter.notification.internal.entity.NotificationEntity;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
+import com.social.twitter.notification.internal.enums.NotificationType;
 import com.social.twitter.posting.likes.LikeService;
 import com.social.twitter.posting.likes.internal.entity.LikeEntity;
 import com.social.twitter.posting.likes.internal.repository.LikeRepository;

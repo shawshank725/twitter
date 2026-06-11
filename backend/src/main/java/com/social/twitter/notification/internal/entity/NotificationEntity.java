@@ -1,7 +1,7 @@
-package com.social.twitter.notification.entity;
+package com.social.twitter.notification.internal.entity;
 
-import com.social.twitter.notification.enums.NotificationStatus;
-import com.social.twitter.notification.enums.NotificationType;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
+import com.social.twitter.notification.internal.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

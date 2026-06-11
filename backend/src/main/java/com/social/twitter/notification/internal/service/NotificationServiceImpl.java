@@ -1,9 +1,9 @@
-package com.social.twitter.notification.service;
+package com.social.twitter.notification.internal.service;
 
 import com.social.twitter.notification.NotificationService;
-import com.social.twitter.notification.entity.NotificationEntity;
-import com.social.twitter.notification.enums.NotificationStatus;
-import com.social.twitter.notification.repository.NotificationRepository;
+import com.social.twitter.notification.internal.entity.NotificationEntity;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
+import com.social.twitter.notification.internal.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

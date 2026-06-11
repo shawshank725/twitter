@@ -1,4 +1,4 @@
-package com.social.twitter.timeline.entity;
+package com.social.twitter.timeline.internal.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package com.social.twitter.notification.repository;
+package com.social.twitter.notification.internal.repository;
 
-import com.social.twitter.notification.entity.NotificationEntity;
-import com.social.twitter.notification.enums.NotificationStatus;
+import com.social.twitter.notification.internal.entity.NotificationEntity;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.social.twitter.notification;
 
-import com.social.twitter.notification.entity.NotificationEntity;
-import com.social.twitter.notification.enums.NotificationStatus;
+import com.social.twitter.notification.internal.entity.NotificationEntity;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
 
 import java.util.List;
 

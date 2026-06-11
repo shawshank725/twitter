@@ -1,8 +1,8 @@
-package com.social.twitter.notification.controller;
+package com.social.twitter.notification.internal.controller;
 
 import com.social.twitter.notification.NotificationService;
-import com.social.twitter.notification.entity.NotificationEntity;
-import com.social.twitter.notification.enums.NotificationStatus;
+import com.social.twitter.notification.internal.entity.NotificationEntity;
+import com.social.twitter.notification.internal.enums.NotificationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

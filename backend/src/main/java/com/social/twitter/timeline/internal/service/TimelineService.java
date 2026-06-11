@@ -1,4 +1,4 @@
-package com.social.twitter.timeline.service;
+package com.social.twitter.timeline.internal.service;
 
 import com.social.twitter.connections.ConnectionService;
 import com.social.twitter.connections.internal.entity.ConnectionEntity;
