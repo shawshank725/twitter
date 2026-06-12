@@ -1,9 +1,9 @@
 
 # Twitter Clone Backend & Frontend
 
-> **Status:** This project is now **complete**. All planned features have been implemented.
+> **Status:** This project is based on a [previous microservice based project](https://github.com/shawshank725/twitter-clone-spring-boot-react-microservices). This project just introduces modulith architecture and fixes existing issues and can be deployed easily.
 
-This is a **modulith-architecture based Twitter clone** built with **Spring Boot**, **Java**, **React**, **HashiCorp Consul** for service discovery, and **NeonDB (PostgreSQL)** as the database.  
+This is a **modulith-architecture based Twitter clone** built with **Spring Boot**, **Java**, **React.js** and **NeonDB (PostgreSQL)** as the database.  
 It supports real-time interactions using **WebSockets** (for notifications) and includes advanced features like image cropping, open-feign clients, MySQL triggers (initially), and a fully functional timeline system.
 
 ---
