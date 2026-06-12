@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
             }
         }
         for (String mentionedUsername: mentionedUsers){
-            long mentionedUserId = userService.getUserByUsername(mentionedUsername).getUserId();
+            long mentionedUserId = userService.getUserIdByUsername(mentionedUsername);
             if (mentionedUserId != 0 && mentionedUserId != postEntity.getUserId()) {
                 try {
                     notificationService.createMentionNotification(

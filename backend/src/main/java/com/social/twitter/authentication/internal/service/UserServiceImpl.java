@@ -32,6 +32,15 @@ public class UserServiceImpl implements UserService {
     private String DEFAULT_BACKGROUND_PHOTO;
 
     @Override
+    public Long getUserIdByUsername(String username) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent()){
+            return optionalUser.get().getUserId();
+        }
+        return 0L;
+    }
+
+    @Override
     public User getUserByUserId(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }

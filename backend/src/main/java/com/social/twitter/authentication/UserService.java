@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
+    Long getUserIdByUsername(String username);
     User getUserByUserId(Long userId);
     User addUser(RegistrationRequest registrationRequest);
     User updateUser(UpdatedUser updatedUser);
