@@ -6,6 +6,7 @@ import com.social.twitter.connections.internal.entity.ConnectionEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ConnectionService {
 
@@ -24,4 +25,7 @@ public interface ConnectionService {
     String deleteConnectionByFollowerAndFolloweeId(Long followerId, Long followeeId);
 
     FollowerFolloweeDTO getUserConnections( Long userId);
+
+    Set<Long> getUserFollowees(Long userId);
+    Set<Long> getUserFollowers(Long userId);
 }

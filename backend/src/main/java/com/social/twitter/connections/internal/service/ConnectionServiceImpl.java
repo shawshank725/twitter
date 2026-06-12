@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -89,5 +91,23 @@ public class ConnectionServiceImpl implements ConnectionService {
         dto.setFollowerList(getFollowersOfAUser(userId));
 
         return dto;
+    }
+
+    @Override
+    public Set<Long> getUserFollowees(Long userId) {
+        Set<Long> followees = getFollowersOfAUser(userId)
+                .stream()
+                .map(ConnectionEntity::getFolloweeId)
+                .collect(Collectors.toSet());
+        return followees;
+    }
+
+    @Override
+    public Set<Long> getUserFollowers(Long userId) {
+        Set<Long> followers = getFollowersOfAUser(userId)
+                .stream()
+                .map(ConnectionEntity::getFollowerId)
+                .collect(Collectors.toSet());
+        return followers;
     }
 }

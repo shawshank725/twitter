@@ -22,11 +22,7 @@ public class TimelineService {
 
     public List<Long> generatePosts(Long userId){
         // get the followees of the user
-        Set<Long> followees = connectionService
-                .getFollowersOfAUser(userId)
-                .stream()
-                .map(ConnectionEntity::getFolloweeId)
-                .collect(Collectors.toSet());
+        Set<Long> followees = connectionService.getUserFollowees(userId);
 
         // get the post ids of the posts made by the user's followees
         List<Long> postIds = postService.getPostIds(followees);
@@ -34,7 +30,7 @@ public class TimelineService {
     }
 
     public List<Long> getFollowees(Long userId){
-        return new ArrayList<>(connectionService.getFollowersOfAUser(userId)).stream().map(ConnectionEntity::getFolloweeId).toList();
+        return connectionService.getUserFollowers(userId).stream().toList();
     }
 
 }

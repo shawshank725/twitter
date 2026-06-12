@@ -1,6 +1,8 @@
 @ApplicationModule(
         allowedDependencies = {
-                "posting::posts"
+                "posting::posts",
+                "authentication",
+                "connections"
         }
 )
 package com.social.twitter.timeline;
