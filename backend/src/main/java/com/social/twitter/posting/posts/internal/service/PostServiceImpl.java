@@ -3,9 +3,6 @@ package com.social.twitter.posting.posts.internal.service;
 import com.social.twitter.authentication.UserService;
 import com.social.twitter.media.MediaService;
 import com.social.twitter.notification.NotificationService;
-import com.social.twitter.notification.internal.entity.NotificationEntity;
-import com.social.twitter.notification.internal.enums.NotificationStatus;
-import com.social.twitter.notification.internal.enums.NotificationType;
 import com.social.twitter.posting.posts.PostService;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.posting.posts.internal.entity.PostMediaEntity;
@@ -15,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -52,15 +48,10 @@ public class PostServiceImpl implements PostService {
             long mentionedUserId = userService.getUserByUsername(mentionedUsername).getUserId();
             if (mentionedUserId != 0 && mentionedUserId != postEntity.getUserId()) {
                 try {
-                    NotificationEntity notificationEntity = new NotificationEntity();
-                    notificationEntity.setNotificationStatus(NotificationStatus.UNREAD);
-                    notificationEntity.setNotifiedUserId(mentionedUserId);
-                    notificationEntity.setPostId(postEntity.getPostId());
-                    notificationEntity.setNotificationTime(new Timestamp(System.currentTimeMillis()));
-                    notificationEntity.setNotificationType(NotificationType.MENTION);
-                    notificationEntity.setTriggeredByUserId(postEntity.getUserId());
-
-                    notificationService.sendNotification(notificationEntity);
+                    notificationService.createMentionNotification(
+                            mentionedUserId, postEntity.getUserId(),
+                            postEntity.getPostId()
+                    );
                 } catch (Exception e) {
                     log.error("Failed to send notification for mention: {}", mentionedUsername, e);
                 }
@@ -69,28 +60,19 @@ public class PostServiceImpl implements PostService {
         if (postEntity.getQuotedPostId() !=null) {
             Optional<PostEntity> originalPostEntity = postRepository.findById(postEntity.getQuotedPostId());
             if (originalPostEntity.isPresent() && (!Objects.equals(originalPostEntity.get().getUserId(), postEntity.getUserId()))){
-                NotificationEntity notificationEntity = new NotificationEntity();
-                notificationEntity.setNotificationStatus(NotificationStatus.UNREAD);
-                notificationEntity.setPostId(postEntity.getPostId());
-                notificationEntity.setNotificationTime(new Timestamp(System.currentTimeMillis()));
-                notificationEntity.setNotificationType(NotificationType.QUOTE);
-                notificationEntity.setTriggeredByUserId(postEntity.getUserId());
-
-                notificationService.sendNotification(notificationEntity);
+                notificationService.createQuoteNotification(
+                        originalPostEntity.get().getUserId(), postEntity.getUserId(),
+                        postEntity.getPostId()
+                );
             }
         }
 
         if (postEntity.getReplyToPostId() !=null) {
             Optional<PostEntity> originalPostEntity = postRepository.findById(postEntity.getReplyToPostId());
             if (originalPostEntity.isPresent() && (!Objects.equals(originalPostEntity.get().getUserId(), postEntity.getUserId()))){
-                NotificationEntity notificationEntity = new NotificationEntity();
-                notificationEntity.setNotificationStatus(NotificationStatus.UNREAD);
-                notificationEntity.setPostId(postEntity.getPostId());
-                notificationEntity.setNotificationTime(new Timestamp(System.currentTimeMillis()));
-                notificationEntity.setNotificationType(NotificationType.REPLY);
-                notificationEntity.setTriggeredByUserId(postEntity.getUserId());
-
-                notificationService.sendNotification(notificationEntity);
+                notificationService.createReplyNotification(
+                        originalPostEntity.get().getUserId(), postEntity.getUserId(),
+                        postEntity.getPostId());
             }
         }
         return savedPost;

@@ -4,34 +4,27 @@ import com.social.twitter.connections.ConnectionService;
 import com.social.twitter.connections.internal.dto.FollowerFolloweeDTO;
 import com.social.twitter.connections.internal.entity.ConnectionEntity;
 import com.social.twitter.connections.internal.repository.ConnectionRepository;
+import com.social.twitter.notification.NotificationService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ConnectionServiceImpl implements ConnectionService {
 
-    @Autowired
-    private ConnectionRepository connectionRepository;
+    private final ConnectionRepository connectionRepository;
+    private final NotificationService notificationService;
 
     @Override
     public ConnectionEntity addConnection(ConnectionEntity connectionEntity){
         ConnectionEntity savedConnection = connectionRepository.save(connectionEntity);
-//        NotificationEntity notificationEntity = notificationRestClientInterface.sendNotification(
-//                NotificationEntity.builder()
-//                        .notificationStatus(NotificationStatus.UNREAD)
-//                        .notifiedUserId(connectionEntity.getFolloweeId())
-//                        .postId(null)
-//                        .notificationTime(new Timestamp(System.currentTimeMillis()))
-//                        .notificationType(NotificationType.FOLLOW)
-//                        .triggeredByUserId(connectionEntity.getFollowerId())
-//                        .build()
-//        );
-        //log.info("NOTIFICATION ENTITY - {}", notificationEntity);
+        notificationService.createReplyNotification(
+                connectionEntity.getFolloweeId(), connectionEntity.getFollowerId(),
+                null);
         return savedConnection;
     }
 

@@ -18,4 +18,11 @@ public interface NotificationService {
     NotificationEntity markNotificationAsRead(Long notificationId);
 
     String deleteNotificationEntity(Long notificationId);
+
+    void createMentionNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
+    void createQuoteNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
+    void createLikeNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
+    void createReplyNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
+    void createFollowNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
+
 }

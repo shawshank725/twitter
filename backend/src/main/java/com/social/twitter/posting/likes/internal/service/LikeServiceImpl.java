@@ -1,9 +1,6 @@
 package com.social.twitter.posting.likes.internal.service;
 
 import com.social.twitter.notification.NotificationService;
-import com.social.twitter.notification.internal.entity.NotificationEntity;
-import com.social.twitter.notification.internal.enums.NotificationStatus;
-import com.social.twitter.notification.internal.enums.NotificationType;
 import com.social.twitter.posting.likes.LikeService;
 import com.social.twitter.posting.likes.internal.entity.LikeEntity;
 import com.social.twitter.posting.likes.internal.repository.LikeRepository;
@@ -13,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,17 +27,10 @@ public class LikeServiceImpl implements LikeService {
     public LikeEntity saveLikeEntity(LikeEntity likeEntity) {
         LikeEntity savedLike = likeRepository.save(likeEntity);
         if (likeEntity.getLikedByUserId() != likeEntity.getLikedPost().getUserId()){
-            NotificationEntity notificationEntity = notificationService.sendNotification(
-                    NotificationEntity.builder()
-                            .notificationStatus(NotificationStatus.UNREAD)
-                            .notifiedUserId(likeEntity.getLikedPost().getUserId())
-                            .postId(likeEntity.getLikedPost().getPostId())
-                            .notificationTime(new Timestamp(System.currentTimeMillis()))
-                            .notificationType(NotificationType.LIKE)
-                            .triggeredByUserId(likeEntity.getLikedByUserId())
-                            .build()
-            );
-            log.info("NOTIFICATION ENTITY - {}", notificationEntity);
+            notificationService.createLikeNotification(
+                    likeEntity.getLikedPost().getUserId(),
+                    likeEntity.getLikedByUserId(),
+                    likeEntity.getLikedPost().getPostId());
         }
         return savedLike;
     }
