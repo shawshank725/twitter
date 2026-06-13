@@ -5,7 +5,6 @@ import  { SPRING_BOOT_LOCALHOST } from '@constants/MiscConstants';
 import type { NewUser } from '@/types/Users/NewUser';
 import type { UpdatedUser } from '@/types/Users/UpdatedUser';
 
-
 export const handleLogout = async () => {
     try {
         const response = await axios.post(

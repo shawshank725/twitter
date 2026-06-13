@@ -19,7 +19,6 @@ import subscribeToNotifications from "@socket/SocketClient";
 import SearchPage from "@pages/SearchPage";
 import QuoteRetweetPage from "./pages/QuoteRetweetPage";
 
-
 function App() {
   
   const {session, isLoading } = useAuth();
