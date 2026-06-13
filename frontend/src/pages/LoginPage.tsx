@@ -5,9 +5,10 @@ import { getUserByUsername, handleLogin } from '@/api/service/UserService';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { useAuth } from '@/context/AuthContext';
+import { OrbitProgress } from 'react-loading-indicators';
 
 const LoginPage = () => {
-    const [user, setUser] = useState<LoginUser>({password: "", username: ""});
+    const [user, setUser] = useState<LoginUser>({ password: "", username: "" });
     const [error, setError] = useState("");
     const { setSession } = useAuth();
     const navigate = useNavigate();
@@ -18,13 +19,13 @@ const LoginPage = () => {
         e.preventDefault();
         setError("");
         setIsDisabled(true);
-    
+
         const result = await handleLogin(user);
         if (result.data === "success") {
             const userData = await getUserByUsername(user.username);
-            setSession({ 
-                user: userData.data, 
-                isLoggedIn: true 
+            setSession({
+                user: userData.data,
+                isLoggedIn: true
             });
             navigate("/home", { replace: true });
         } else {
@@ -48,11 +49,11 @@ const LoginPage = () => {
                 <p className='createAccountHeading'>Sign in to our App</p>
                 <form className="form" onSubmit={onSubmit}>
                     <div className='textfieldsContainer'>
-                        <TextField type='text' label="Username" 
-                                        id='username'
-                                        name='username'
-                                        value={user.username}
-                                        onChange={handleChange} className='usernameTextField'/>
+                        <TextField type='text' label="Username"
+                            id='username'
+                            name='username'
+                            value={user.username}
+                            onChange={handleChange} className='usernameTextField' />
                         <div className='passwordContainer'>
                             <div className='passwordWrapper'>
                                 <TextField
@@ -74,7 +75,7 @@ const LoginPage = () => {
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div className='buttonContainer'>
                         <button className='submitButton' disabled={isDisabled} type="submit">Login</button>
@@ -92,6 +93,26 @@ const LoginPage = () => {
                     >
                         {error}
                     </p>
+
+                    {
+                        isDisabled && (
+                            <div
+                                style={{
+                                    transform: "scale(0.5)",
+                                    width: "12px",
+                                    height: "12px",
+                                    justifySelf: 'center'
+                                }}
+                            >
+                                <OrbitProgress
+                                    color="#1DA1F2"
+                                    size="small"
+                                    text=""
+                                    textColor=""
+                                />
+                            </div>
+                        )
+                    }
                 </form>
             </div>
         </div>
