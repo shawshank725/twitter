@@ -3,12 +3,14 @@ import Stomp from "stompjs";
 import type { NotificationEntity } from "@/types/Notifications/NotificationEntity";
 import { getUserByUserId } from "@/api/service/UserService";
 import { queryClient } from "@/main";
+import { SPRING_BOOT_LOCALHOST } from "@/constants/MiscConstants";
 
 let socketClient: any = null;
 
 export function connectSocket(onConnected?: () => void) {
 
-  const socket = new WebSocket("ws://localhost:8080/ws");
+  const wsUrl = SPRING_BOOT_LOCALHOST.replace(/^http/, 'ws') + '/ws';
+  const socket = new WebSocket(wsUrl);
   socketClient = Stomp.over(socket);
 
   socketClient.connect({},

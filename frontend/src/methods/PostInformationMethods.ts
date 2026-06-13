@@ -28,7 +28,7 @@ export function hasUserBookmarkedPost(bookmarksList: BookmarkEntity[] | undefine
 export const deletePost = async(postId: number, userEntity: User, 
   setShowMoreSettings:(value: boolean)=>void, refetch?:()=>void) => {
   try {
-      const { data } = await deletePostByPostId(postId);
+      await deletePostByPostId(postId);
       toast(`Post deleted.`);
       await queryClient.invalidateQueries({queryKey: ['posts', userEntity.userId]});
       console.log("Invalidated posts query for user:", userEntity.userId);
@@ -45,14 +45,14 @@ export const addRemoveLike = async (postEntity:PostEntity,
   refetchPostLikesCount:()=> void, userLikedPostsResult: UseQueryResult<AxiosResponse<LikeEntity[]>>) => {
   try {
     if (userHasLikedPost) {
-      const result = await deleteLikeEntity(postEntity.postId, authUser!.userId);
+      await deleteLikeEntity(postEntity.postId, authUser!.userId);
       refetchPostLikesCount();
       userLikedPostsResult.refetch();
     }
     else {
       // ADD THE LIKE 
       const date = new Date();
-      const result = await addLike({
+      await addLike({
         likedByUserId: authUser!.userId,
         likedPost: postEntity,
         likedAt: date.toISOString(),
@@ -70,14 +70,14 @@ export const addRemoveBookmark = async (postEntity:PostEntity,
 
     try {
     if (userHasBookmarkedPost) {
-      const result = await removeBookmarkEntity(postEntity.postId, authUser!.userId);
+      await removeBookmarkEntity(postEntity.postId, authUser!.userId);
       refetchPostBookmarksCount();
       userBookmarkedPostsResult.refetch();
     }
     else {
       // ADD THE LIKE 
       const date = new Date();
-      const result = await addBookmark({
+      await addBookmark({
         bookmarkedByUserId: authUser!.userId,
         bookmarkedPost: postEntity,
         bookmarkedAt: date.toISOString(),
