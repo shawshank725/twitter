@@ -10,6 +10,7 @@ import type { PostEntity } from "@/types/Posts/PostEntity";
 import { getPostByPostId } from "@/api/service/PostingService";
 import PostCard from "@/components/posts/PostCard";
 import SearchField from "@/components/SearchField";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 export default function SearchPage() {
     const location = useLocation();
@@ -94,7 +95,7 @@ export default function SearchPage() {
                                     users.map((user: User, index: number) => (
                                         <div className="searchResultUserProfileContainer" onClick={() => { navigate(`/${user.username}`) }} key={index}>
                                             <div className="searchResultProfilePhotoContainer">
-                                                <img src={user.profilePhoto} className="searchResultProfilePhoto" />
+                                                <img src={user?.profilePhoto == null ? profilePhotoUrlConstant : user.profilePhoto} className="searchResultProfilePhoto" />
                                             </div>
                                             <div className="searchResultUserInfoContainer">
                                                 <span style={{ fontWeight: 'bold' }}>{user.name}</span>

@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
 import { getPostByPostId, getRepliesToPost, getUsersPost } from "@/api/service/PostingService";
+import { getTimeline } from "../service/TimelineService";
 
 
 // GETTING ALL THE POSTS OF THE USER BY THEIR USER ID
@@ -48,3 +49,29 @@ export const useGetRepliesToPost = (postId: number) => {
         enabled: postId !==null
     })
 }
+
+export const useGetTimeline = () => {
+    return useInfiniteQuery({
+        queryKey: ["timeline"],
+
+        queryFn: async ({ pageParam = 0 }) => {
+            const result = await getTimeline(pageParam);
+
+            if (!result) {
+                throw new Error("COULD NOT FIND TIMELINE POSTS");
+            }
+
+            return result;
+        },
+
+        initialPageParam: 0,
+
+        getNextPageParam: (lastPage) => {
+            return lastPage.last
+                ? undefined
+                : lastPage.number + 1;
+        },
+
+        staleTime: 0
+    });
+};

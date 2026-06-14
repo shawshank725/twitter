@@ -75,3 +75,60 @@
     width: 100%;
     column-gap: 10px;
 }
+
+
+.accordion {
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgb(212, 212, 212);
+}
+
+.accordion:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.accordionText {
+    margin: 0px;
+}
+
+.panel {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    row-gap: 10px;
+    flex-direction: column;
+    background-color: white;
+    animation: fadeDown 0.2s ease;
+}
+
+.panel span {
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.panel span:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,52 +1,62 @@
 import '@styles/universal.css';
 import '@styles/pages-styles/HomePage.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '@context/AuthContext';
 import PostingArea from '@components/posts/PostingArea';
-import { useGenerateTimeline } from '@api/query/TimelineQueries';
-import { getPostByPostId } from '@api/service/PostingService';
 import PostCard from '@components/posts/PostCard';
-import type { PostEntity } from '@/types/Posts/PostEntity';
-import type { AxiosResponse } from 'axios';
+import { useGetTimeline } from '@/api/query/PostQueries';
 
 export default function HomePage() {
-  useEffect(() => { document.title = "Home" }, []);
+  useEffect(() => {
+    document.title = "Home";
+  }, []);
+
   const { session } = useAuth();
   const authUser = session.user;
-  const {data: timeline} = useGenerateTimeline(authUser?.userId ?? 0);
-  console.log(timeline);
-  const [posts, setPosts] = useState<AxiosResponse<PostEntity, any>[]>([]);
 
-  useEffect(() => {
-    if (!timeline) return;
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useGetTimeline();
 
-    const fetchPosts = async () => {
-      try {
-        const results = await Promise.all(
-          timeline.map((postId: number) => getPostByPostId(postId))
-        );
-        const postsData = results.map(res => res.data);
-        postsData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-        setPosts(results);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-
-    fetchPosts();
-  }, [timeline]);
+  const posts =
+    data?.pages.flatMap(page => page.content) ?? [];
 
   return (
-    <div className='homePageContainer'>
+    <div className="homePageContainer">
       <PostingArea userInfo={authUser} />
-      {authUser && posts.map((postResponse, index) => (
-        <PostCard
-          key={postResponse.data.postId ?? index}
-          userId={postResponse.data.userId}
-          postEntity={postResponse.data}
-        />
-      ))}
+
+      {authUser &&
+        posts.map((post) => (
+          <PostCard
+            key={post.postId}
+            userId={post.userId}
+            postEntity={post}
+          />
+        ))}
+
+      <div
+        ref={(node) => {
+          if (!node) return;
+
+          const observer = new IntersectionObserver((entries) => {
+            if (
+              entries[0].isIntersecting &&
+              hasNextPage &&
+              !isFetchingNextPage
+            ) {
+              fetchNextPage();
+            }
+          });
+
+          observer.observe(node);
+
+          return () => observer.disconnect();
+        }}
+      />
     </div>
+
   );
 }

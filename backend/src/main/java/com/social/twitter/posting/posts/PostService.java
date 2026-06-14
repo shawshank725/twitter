@@ -2,6 +2,7 @@ package com.social.twitter.posting.posts;
 
 
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;
@@ -29,4 +30,6 @@ public interface PostService {
     List<Long> getPostResults(String input);
 
     List<Long> getPostIds(Set<Long> userIds);
+
+    Page<PostEntity> getPostsForTimeline(int page, int size);
 }

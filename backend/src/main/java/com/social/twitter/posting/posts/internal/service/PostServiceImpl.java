@@ -10,6 +10,10 @@ import com.social.twitter.posting.posts.internal.repository.PostMediaRepository;
 import com.social.twitter.posting.posts.internal.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -159,5 +163,16 @@ public class PostServiceImpl implements PostService {
         }
 
         return postIds;
+    }
+
+    @Override
+    public Page<PostEntity> getPostsForTimeline(int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("createdAt").descending()
+        );
+
+        return postRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 }

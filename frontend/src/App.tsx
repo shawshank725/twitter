@@ -18,6 +18,8 @@ import { connectSocket} from "@socket/SocketClient";
 import subscribeToNotifications from "@socket/SocketClient";
 import SearchPage from "@pages/SearchPage";
 import QuoteRetweetPage from "./pages/QuoteRetweetPage";
+import ChangeUsername from "./pages/settings/ChangeUsername";
+import ChangePassword from "./pages/settings/ChangePassword";
 
 function App() {
   
@@ -62,8 +64,12 @@ function App() {
         <Route index element={<Navigate to="/home" replace />} />
         <Route path="home" element={<HomePage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="settings/changeUsername" element={<ChangeUsername />} />
+        <Route path="settings/changePassword" element={<ChangePassword />} />
+
         <Route path=":username" element={<ProfilePage />} />
         <Route path=":username/:connectionType" element={<ConnectionPage />} />
+
         <Route path="post/:postId" element={<PostViewerPage />} />
         <Route path="post/:postId/quotePosts" element={<QuoteRetweetPage />} />
         <Route path="bookmarks" element={<BookmarksPage />} />

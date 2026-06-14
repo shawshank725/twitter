@@ -61,7 +61,7 @@ export default function EditProfileModal({
                         <div className="userInformationContainer">
                             <div className="backgroundProfilephotoContainer">
                                 <div className="backgroundPhotoContainerModal">
-                                    <img src={editableUserInfo?.backgroundPhoto} className="backgroundPhotoModal" />
+                                    <img src={editableUserInfo?.backgroundPhoto == null ? backgroundPhotoUrlConstant : editableUserInfo.backgroundPhoto} className="backgroundPhotoModal" />
                                     <div className="cameraContainer">
                                         <input
                                             ref={backgroundPhotoRef}
@@ -86,7 +86,7 @@ export default function EditProfileModal({
                                 </div>
 
                                 <div className="profilePhotoContainerModal">
-                                    <img src={editableUserInfo?.profilePhoto} className="profilePhotoModal" />
+                                    <img src={editableUserInfo?.profilePhoto == null ? profilePhotoUrlConstant : editableUserInfo.profilePhoto} className="profilePhotoModal" />
                                     <div className="cameraContainer">
                                         <input
                                             ref={profilePhotoRef}

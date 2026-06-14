@@ -195,7 +195,7 @@ export default function ProfilePage() {
                 <div className="profilePhotoAndEditProfileContainer">
                     <div className="profilePhotoContainerBig">
                         <img src={userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto} className="profilePhotoBig" 
-                        onClick={()=> {setSelectedPhoto(userInfo?.profilePhoto)}}/>
+                        onClick={()=> {setSelectedPhoto(userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto)}}/>
                     </div>
                     {
                         authUser && userInfo.username === authUser.username && (

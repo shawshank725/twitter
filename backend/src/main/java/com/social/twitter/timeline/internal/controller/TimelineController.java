@@ -2,10 +2,12 @@ package com.social.twitter.timeline.internal.controller;
 
 import com.social.twitter.authentication.UserService;
 import com.social.twitter.posting.posts.PostService;
+import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.timeline.internal.entity.SearchResult;
 import com.social.twitter.timeline.internal.service.TimelineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +26,11 @@ public class TimelineController {
     private final PostService postService;
 
     @GetMapping("/generate")
-    public List<Long> generatePosts(
-            @RequestParam Long userId
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size
+    public Page<PostEntity> generatePosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ){
-        return timelineService.generatePosts(userId);
+        return postService.getPostsForTimeline(page,size);
     }
 
     @GetMapping("/generateFollowSuggestions")
