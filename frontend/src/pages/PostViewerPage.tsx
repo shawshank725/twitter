@@ -24,6 +24,7 @@ import { useGetPostLikesByUser, useGetPostLikesCount } from "@api/query/LikeQuer
 import { useGetPost, useGetRepliesToPost } from "@api/query/PostQueries";
 import QuotedPostCard from "@components/posts/QuotedPostCard";
 import { useGetQuotesCount } from "@/api/query/QuoteRetweetQueries";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 export default function PostViewerPage() {
 
@@ -90,7 +91,7 @@ export default function PostViewerPage() {
             <div className="postDetailsContainer">
                 <div className="postPosterPhotoNameContainer">
                     <div className="postViewerProfilePhotoContainer" onClick={()=> {userEntity && leadUserToProfilePage(navigate, userEntity?.data.username)}}>
-                        <img src={userEntity?.data.profilePhoto} className="postViewerProfilePhoto"/>
+                        <img src={userEntity?.data.profilePhoto == null ? profilePhotoUrlConstant : userEntity?.data.profilePhoto} className="postViewerProfilePhoto"/>
                     </div>
                     <div className="postPosterNameContainer" onClick={()=> {userEntity && leadUserToProfilePage(navigate, userEntity?.data.username)}}>
                         <span className="postPosterUserName">{userEntity?.data.name}</span>

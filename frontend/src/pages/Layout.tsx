@@ -13,6 +13,7 @@ import { getUserByUserId } from "@api/service/UserService";
 import type { AxiosResponse } from "axios";
 import { FollowUser } from "@methods/FollowingMethods";
 import { toast } from "react-toastify";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 export default function Layout() {
   const { session } = useAuth();
@@ -56,7 +57,7 @@ export default function Layout() {
                     <div className="followPeopleUser" key={index} onClick={() => navigate(`/${user.username}`)}>
                       <div style={{ display: "flex", columnGap: "10px" }}>
                         <div className="followPeopleUserProfilePhotoContainer">
-                          <img src={user.profilePhoto} className="followPeopleUserProfilePhoto" />
+                          <img src={user?.profilePhoto == null ? profilePhotoUrlConstant : user.profilePhoto} className="followPeopleUserProfilePhoto" />
                         </div>
                         <div className="followPeopleUserInfoContainer">
                           <span style={{ fontWeight: "bold" }}>{user.name}</span>

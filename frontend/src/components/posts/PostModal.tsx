@@ -12,6 +12,7 @@ import { saveNewPost } from "@api/service/PostingService";
 import type { NewPostEntity } from "@/types/Posts/PostEntity";
 import type { NewPostMediaEntity } from "@/types/Posts/PostMediaEntity";
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 type PostModalProps = {
     userInfo: User | null;
@@ -162,7 +163,7 @@ export default function PostModal({
                     <div className="postModalContentContainer">
                         <div className="postModalProfilePhotoTextAreaContainer">
                             <div>
-                                <img src={userInfo?.profilePhoto} className="postModalProfilePhoto" />
+                                <img src={userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto} className="postModalProfilePhoto" />
                             </div>
                             <div className="postModalTextareaContainer">
                                 <textarea rows={10} 

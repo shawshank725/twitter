@@ -26,6 +26,7 @@ import { useGetPostLikesByUser, useGetLikedPosts } from "@/api/query/LikeQueries
 import { useGetPosts } from "@/api/query/PostQueries";
 import { parseJoinedDate } from "@/methods/OtherMethods";
 import type { UpdatedUser } from "@/types/Users/UpdatedUser";
+import { backgroundPhotoUrlConstant, profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 
 export default function ProfilePage() {
@@ -66,6 +67,7 @@ export default function ProfilePage() {
     const userLikedPostsResult = useGetPostLikesByUser(authUser?.userId!);
     const userBookmarkedPostResult = useGetUsersBookmarks(authUser?.userId!);
     const {data: userLikedPostEntities} = useGetLikedPosts(userId);
+
 
     const navigate = useNavigate();
 
@@ -151,7 +153,6 @@ export default function ProfilePage() {
         if (savingUserResponse) {
             setUserInfo(updatedUserInfo);
             setShowEditModal(false);
-            navigate("/home", { replace: true });
             toast("Profile Updated!");
         }
     };
@@ -188,12 +189,12 @@ export default function ProfilePage() {
             </div>
             <div>
                 <div className="backgroundPhotoContainer">
-                    <img src={userInfo?.backgroundPhoto} className="backgroundPhoto" 
-                    onClick={()=> {setSelectedPhoto(userInfo?.backgroundPhoto)}}/>
+                    <img src={userInfo?.backgroundPhoto == null ? backgroundPhotoUrlConstant : userInfo.backgroundPhoto} className="backgroundPhoto" 
+                    onClick={()=> {setSelectedPhoto(userInfo?.backgroundPhoto == null ? backgroundPhotoUrlConstant : userInfo.backgroundPhoto)}}/>
                 </div>
                 <div className="profilePhotoAndEditProfileContainer">
                     <div className="profilePhotoContainerBig">
-                        <img src={userInfo?.profilePhoto} className="profilePhotoBig" 
+                        <img src={userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto} className="profilePhotoBig" 
                         onClick={()=> {setSelectedPhoto(userInfo?.profilePhoto)}}/>
                     </div>
                     {

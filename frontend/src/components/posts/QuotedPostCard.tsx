@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import PostMediaDisplayer from '@/components/posts/PostMediaDisplayer';
 import MentionParser from '@methods/ParseText';
 import { useGetUserInfoFromId } from '@/api/query/UserQueries';
+import { profilePhotoUrlConstant } from '@/constants/PhotoUrls';
 
 type PostEntityProp = {
     userId: number;
@@ -34,7 +35,7 @@ export default function QuotedPostCard ({ userId, postEntity}: PostEntityProp) {
     return (
         <div className="postCardContainer" onClick={()=> {navigate(`/post/${postEntity.postId}`);}} >
             <div className="postCardProfilePhotoContainer">
-                <img src={userEntity.profilePhoto} className="postCardProfilePhoto" 
+                <img src={userEntity?.profilePhoto == null ? profilePhotoUrlConstant : userEntity.profilePhoto} className="postCardProfilePhoto" 
                     onClick={(e: React.MouseEvent)=> {
                         e.stopPropagation(); 
                         navigate(`/${poster?.data.username}`);

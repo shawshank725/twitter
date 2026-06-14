@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PostModal from '@/components/posts/PostModal';
 import useOutsideAlerter from '@hooks/useOutsideAlerter';
-import { TWITTER_LOGO_PATH } from '@constants/PhotoUrls';
+import { profilePhotoUrlConstant, TWITTER_LOGO_PATH } from '@constants/PhotoUrls';
 import { useGetUnreadNotificationsCount } from '@/api/query/NotificationQueries';
 
 import { HomeIcon as HomeIconOutline } from "@heroicons/react/24/outline";
@@ -123,7 +123,7 @@ export default function Sidebar({userInfo}: UserInfoProp) {
                     <div className='sidebarProfileContainer' onClick={()=> {setShowDialogBox(!showDialogBox)}}>
                         <div className='sidebarProfilePhotoUsernameContainer'>
                             <div className='sidebarProfilePhotoContainer'>
-                                <img src={userInfo?.profilePhoto} className='sidebarProfilePhoto'/> 
+                                <img src={userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto} className='sidebarProfilePhoto'/> 
                             </div>
                             <div className='sidebarUsernameFullNameContainer'>
                                 <span className='sidebarUserFullName'>{userInfo?.name}</span>

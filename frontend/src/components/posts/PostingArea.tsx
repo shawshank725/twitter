@@ -14,6 +14,7 @@ import type { NewPostMediaEntity } from "@/types/Posts/PostMediaEntity";
 import PostTextBar from "@components/posts/PostTextBar";
 import { POST_TEXT_LENGTH } from "@constants/MiscConstants";
 import useOutsideAlerter from "@hooks/useOutsideAlerter";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 type UserProp = {
   userInfo: User | null;
@@ -97,7 +98,7 @@ export default function PostingArea({userInfo, replyingToPostId}: UserProp) {
     return (
       <div className='postingArea'>
         <div className='profilePhotoHomeContainer' onClick={()=> {navigate(`/${userInfo?.username}`)}}>
-          <img src={userInfo?.profilePhoto} className='profilePhotoHome'/>
+          <img src={userInfo?.profilePhoto == null ? profilePhotoUrlConstant : userInfo.profilePhoto} className='profilePhotoHome'/>
         </div>
 
         <div className='postingAreaRightSideContainer'>

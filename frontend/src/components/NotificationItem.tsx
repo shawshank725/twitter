@@ -11,6 +11,7 @@ import { forwardRef } from "react";
 import { Trash2 } from "lucide-react";
 import { deleteNotification } from "@/api/service/NotificationService";
 import { queryClient } from "@/main";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 type NotificationProp = {
     notification: NotificationEntity;
@@ -64,7 +65,7 @@ const NotificationItem = forwardRef<HTMLDivElement, NotificationProp>(
                     <div>
                         <div style={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
                             <img
-                                src={triggeredByUser.data?.data.profilePhoto}
+                                src={triggeredByUser.data?.data.profilePhoto == null ? profilePhotoUrlConstant : triggeredByUser.data?.data.profilePhoto}
                                 onClick={(e: React.MouseEvent<HTMLImageElement>) => {
                                     e.stopPropagation();
                                     navigate(`/${triggeredByUser.data?.data.username}`)

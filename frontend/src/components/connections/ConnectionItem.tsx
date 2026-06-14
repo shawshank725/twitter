@@ -3,6 +3,7 @@ import { useGetUserInfoFromId } from "@/api/query/UserQueries";
 import '@/styles/components-styles/connections/ConnectionItem.css';
 import { useAuth } from "@context/AuthContext";
 import { useState } from "react";
+import { profilePhotoUrlConstant } from "@/constants/PhotoUrls";
 
 type ConnectionItemProp = { 
     id: number; 
@@ -23,7 +24,7 @@ export default function ConnectionItem({id, index, isFollowing}: ConnectionItemP
             navigate(`/${user?.data.username}`)
         }}>
             <div className="profilePhotoConnectionPageContainer">
-                <img src={user?.data.profilePhoto} className="profilePhotoConnectionPage"/>
+                <img src={user?.data.profilePhoto == null ? profilePhotoUrlConstant : user?.data.profilePhoto} className="profilePhotoConnectionPage"/>
             </div>
             <div className="userInfoContainer">
                 <span className="userNameConnectionItemText">{user?.data.name}</span>

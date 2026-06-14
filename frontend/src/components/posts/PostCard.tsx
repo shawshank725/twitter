@@ -24,6 +24,7 @@ import { useGetPostLikesCount } from '@/api/query/LikeQueries';
 import { useGetPostBookmarkCount } from '@/api/query/BookmarksQueries';
 import { useGetPost, useGetRepliesToPost } from '@/api/query/PostQueries';
 import { useGetQuotesCount } from '@/api/query/QuoteRetweetQueries';
+import { profilePhotoUrlConstant } from '@/constants/PhotoUrls';
 
 type PostEntityProp = {
     userId: number;
@@ -86,7 +87,7 @@ export default function PostCard({ userId, postEntity,
     return (
         <div className="postCardContainer" >
             <div className="postCardProfilePhotoContainer">
-                <img src={userEntity.profilePhoto} className="postCardProfilePhoto" 
+                <img src={userEntity?.profilePhoto == null ? profilePhotoUrlConstant : userEntity.profilePhoto} className="postCardProfilePhoto" 
                     onClick={(e: React.MouseEvent)=> {
                         e.stopPropagation(); 
                         navigate(`/${userEntity.username}`);
