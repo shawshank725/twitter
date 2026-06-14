@@ -6,10 +6,10 @@ export const useGenerateTimeline = (userId: number) => {
         queryKey: ["timeline", userId],
         queryFn: async () => {
             const result = await getTimeline(userId);
-            if (!result?.data) {
+            if (!result) {
                 throw new Error("COULD NOT GET THE TIMELINE");
             }
-            return result.data;
+            return result;
         },
         staleTime: 0,
         enabled: !!userId
