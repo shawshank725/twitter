@@ -136,8 +136,10 @@ npm install
 Create a `.env` file inside the `frontend` directory:
 
 ```env
-GIPHY_API=your_giphy_api_key
+VITE_GIPHY_API=your_giphy_api_key
+VITE_SPRING_BOOT_APP=http://localhost:8080
 ```
+You can either use it locally and set this as localhost OR you can deploy the backend on render or any other service and paste the URL here.
 
 ### 4. Set Up the Backend
 
