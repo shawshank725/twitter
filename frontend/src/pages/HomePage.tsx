@@ -14,6 +14,7 @@ export default function HomePage() {
   const { session } = useAuth();
   const authUser = session.user;
   const {data: timeline} = useGenerateTimeline(authUser?.userId ?? 0);
+  console.log(timeline);
   const [posts, setPosts] = useState<AxiosResponse<PostEntity, any>[]>([]);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function HomePage() {
         <PostCard
           key={postResponse.data.postId ?? index}
           userId={postResponse.data.userId}
-          postEntity={postResponse.data}  // <-- pass the actual PostEntity
+          postEntity={postResponse.data}
         />
       ))}
     </div>

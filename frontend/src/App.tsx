@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import LandingPage from "@pages/LandingPage";
 import LoginPage from "@pages/LoginPage";
@@ -23,8 +23,6 @@ function App() {
   
   const {session, isLoading } = useAuth();
   const authUser = session.user;
-
-  if (isLoading) return <div>Loading...</div>;
   useEffect(()=> {
     if (authUser) {
       connectSocket(() => {
@@ -35,6 +33,9 @@ function App() {
       console.log("No authUser or token, skipping WebSocket connection");
     }
   }, [authUser]);
+  
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Routes>
@@ -58,6 +59,7 @@ function App() {
           </ProtectedRoute>
         }
       >
+        <Route index element={<Navigate to="/home" replace />} />
         <Route path="home" element={<HomePage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path=":username" element={<ProfilePage />} />

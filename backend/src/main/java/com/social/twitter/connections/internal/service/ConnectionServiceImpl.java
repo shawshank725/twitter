@@ -24,7 +24,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public ConnectionEntity addConnection(ConnectionEntity connectionEntity){
         ConnectionEntity savedConnection = connectionRepository.save(connectionEntity);
-        notificationService.createReplyNotification(
+        notificationService.createFollowNotification(
                 connectionEntity.getFolloweeId(), connectionEntity.getFollowerId(),
                 null);
         return savedConnection;

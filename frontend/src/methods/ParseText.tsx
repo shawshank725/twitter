@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 interface MentionParserProps {
-  text: string;
+  text: string | null;
 }
 
 export default function MentionParser({ text }: MentionParserProps) {
+  if (text == null) return "";
+  
   const navigate = useNavigate();
 
   const parts = text.split(/(@\w+|\n)/g);

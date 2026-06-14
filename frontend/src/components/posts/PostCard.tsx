@@ -141,9 +141,11 @@ export default function PostCard({ userId, postEntity,
                     </div>
                 </div>
 
-                <div className='postTextContainer' onClick={() => { navigate(`/post/${postEntity.postId}`); }}>
-                    <MentionParser text={postEntity.postText!} />
+                {
+                    postEntity.postText && <div className='postTextContainer' onClick={() => { navigate(`/post/${postEntity.postId}`); }}>
+                    <MentionParser text={postEntity.postText} />
                 </div>
+                }
 
                 <PostMediaDisplayer postEntity={postEntity}
                     setSelectedPhoto={setSelectedPhoto}
