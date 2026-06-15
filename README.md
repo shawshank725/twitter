@@ -15,6 +15,29 @@
 This is a **modulith-architecture based Twitter clone** built with **Spring Boot**, **Java**, **React.js** and **NeonDB (PostgreSQL)** as the database.  
 It supports real-time interactions using **WebSockets** (for notifications) and includes advanced features like image cropping, open-feign clients, MySQL triggers (initially), and a fully functional timeline system.
 
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Architecture Comparison](#architecture-comparison)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#1-fork-or-clone-the-repository)
+  - [Clone Repository](#1-fork-or-clone-the-repository)
+  - [Database Setup](#2-set-up-the-database)
+  - [Frontend Setup](#3-set-up-the-frontend)
+  - [Backend Setup](#4-set-up-the-backend)
+  - [Run Backend](#5-run-the-backend)
+  - [Run Frontend](#6-run-the-frontend)
+  - [Register an Account](#7-register-an-account)
+- [System design & Flows](#system-design--flows)
+  - [Timeline Generation](#-timeline-generation)
+  - [Suggested People to Follow](#-suggested-people-to-follow)
+  - [Settings Page Includes](#-settings-page-includes)
+- [Added Features & Fixes](#added-features--fixes)
+- [Screenshots](#screenshots)
+- [License](#license)
+- [Author](#author)
+
 ---
 
 ## Tech Stack
@@ -196,7 +219,7 @@ Create an account and start using the application.
 
 ---
 
-## Algorithms & Flows
+## System design & Flows
 
 ### 🔹 Timeline Generation
 1. Connection service returns a list of followers & followees (given a user id).  
