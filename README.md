@@ -15,6 +15,10 @@
 This is a **modulith-architecture based Twitter clone** built with **Spring Boot**, **Java**, **React.js** and **NeonDB (PostgreSQL)** as the database.  
 It supports real-time interactions using **WebSockets** (for notifications) and includes advanced features like image cropping, open-feign clients, MySQL triggers (initially), and a fully functional timeline system.
 
+## Demo Video
+<video src="./output/demo-twitter.mp4" controls ></video>
+
+
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
@@ -222,12 +226,8 @@ Create an account and start using the application.
 ## System design & Flows
 
 ### 🔹 Timeline Generation
-1. Connection service returns a list of followers & followees (given a user id).  
-2. Deduplicate into a **set**.  
-3. Another endpoint fetches **post IDs** for this set.  
-4. Send post IDs to frontend → frontend maps & displays posts.  
-5. Show first 10 posts → then "Show more" appends 10 more.  
-6. If <10 posts → display global feed.  
+1. Latest posts are delivered to the end user through the use of pagination.
+2. Infinite scrolling is added to the frontend.
 
 ### 🔹 Suggested People to Follow
 1. Get list of users the logged-in user already follows.  
