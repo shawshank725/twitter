@@ -16,7 +16,7 @@ This is a **modulith-architecture based Twitter clone** built with **Spring Boot
 It supports real-time interactions using **WebSockets** (for notifications) and includes advanced features like image cropping, open-feign clients, MySQL triggers (initially), and a fully functional timeline system.
 
 ## Demo Video
-<video src="./output/demo-twitter.mp4" controls ></video>
+![hippo](./output/demo-twitter.gif)
 
 
 ## Table of Contents
