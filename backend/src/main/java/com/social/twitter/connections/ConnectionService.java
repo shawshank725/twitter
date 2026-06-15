@@ -28,4 +28,6 @@ public interface ConnectionService {
 
     Set<Long> getUserFollowees(Long userId);
     Set<Long> getUserFollowers(Long userId);
+
+    void deleteAllConnectionsByUserId(Long userId);
 }

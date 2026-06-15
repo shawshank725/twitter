@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -109,5 +110,23 @@ public class ConnectionServiceImpl implements ConnectionService {
                 .map(ConnectionEntity::getFollowerId)
                 .collect(Collectors.toSet());
         return followers;
+    }
+
+    @Override
+    public void deleteAllConnectionsByUserId(Long userId) {
+        try {
+            List<ConnectionEntity> list1 = connectionRepository.findAllByFolloweeId(userId);
+            List<ConnectionEntity> list2 = connectionRepository.findAllByFolloweeId(userId);
+
+            for (ConnectionEntity connectionEntity: list1){
+                connectionRepository.delete(connectionEntity);
+            }
+
+            for (ConnectionEntity connectionEntity : list2){
+                connectionRepository.delete(connectionEntity);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

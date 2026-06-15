@@ -7,8 +7,7 @@ import com.social.twitter.authentication.internal.entity.UpdatedUser;
 import com.social.twitter.authentication.internal.entity.User;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
 import com.social.twitter.authentication.internal.repository.UserRepository;
-import com.social.twitter.posting.bookmarks.BookmarkService;
-import com.social.twitter.posting.likes.LikeService;
+import com.social.twitter.orchestration.OrchestrationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +25,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private final LikeService likeService;
-    private final BookmarkService bookmarkService;
 
     @Value("${twitter.profile-photo}")
     private String DEFAULT_PROFILE_PHOTO;
@@ -108,11 +105,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(User user) {
-        // do not delete the posts, replies, quote posts of a user when they delete their account
-        // instead delete the likes and bookmarks done by that user.
-        // then delete the user account.
-        likeService.deleteAllLikesByUserId(user.getUserId());
-        bookmarkService.deleteAllBookmarksByUserId(user.getUserId());
         userRepository.delete(user);
     }
 

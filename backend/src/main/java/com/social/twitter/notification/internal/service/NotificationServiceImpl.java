@@ -83,6 +83,19 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public void deleteAllNotificationsOfUser(Long userId) {
+        try {
+            List<NotificationEntity> notificationEntities = notificationRepository.findByNotifiedUserIdOrderByNotificationTimeDesc(userId);
+            for (NotificationEntity notificationEntity: notificationEntities){
+                notificationRepository.delete(notificationEntity);
+            }
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void createMentionNotification(Long notifiedUserId, Long triggeredByUserId, Long postId) {
         NotificationEntity notificationEntity = createBaseNotification(notifiedUserId, triggeredByUserId, postId);
         notificationEntity.setNotificationType(NotificationType.MENTION);

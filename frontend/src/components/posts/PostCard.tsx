@@ -34,7 +34,7 @@ type PostEntityProp = {
     userBookmarkedPostsResult?: UseQueryResult<AxiosResponse<any, any>, Error>;
 }
 
-export default function PostCard({ userId, postEntity,
+export default function PostCard({ postEntity,
     refetch, userLikedPostsResult,
     userBookmarkedPostsResult,
 }: PostEntityProp) {

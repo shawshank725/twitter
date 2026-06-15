@@ -1,6 +1,15 @@
 
 # Twitter Clone Backend & Frontend
 
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?logo=springboot&logoColor=white)
+![Spring Modulith](https://img.shields.io/badge/Spring_Modulith-Modular_Monolith-success)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![Session_Authentication](https://img.shields.io/badge/Auth-Session_Based-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 > **Status:** This project is based on a [previous microservice based project](https://github.com/shawshank725/twitter-clone-spring-boot-react-microservices). This project just introduces modulith architecture and fixes existing issues and can be deployed easily.
 
 This is a **modulith-architecture based Twitter clone** built with **Spring Boot**, **Java**, **React.js** and **NeonDB (PostgreSQL)** as the database.  

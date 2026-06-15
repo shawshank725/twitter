@@ -19,6 +19,8 @@ public interface NotificationService {
 
     String deleteNotificationEntity(Long notificationId);
 
+    void deleteAllNotificationsOfUser(Long userId);
+
     void createMentionNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
     void createQuoteNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);
     void createLikeNotification(Long notifiedUserId, Long triggeredByUserId, Long postId);

@@ -5,6 +5,7 @@ import com.social.twitter.authentication.internal.entity.User;
 import com.social.twitter.authentication.internal.entity.UserDTO;
 import com.social.twitter.authentication.internal.entity.UserToDtoMapper;
 import com.social.twitter.authentication.UserService;
+import com.social.twitter.orchestration.OrchestrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final OrchestrationService orchestrationService;
 
     // get the current logged-in user information from this endpoint
     @GetMapping("/me")
@@ -112,6 +114,13 @@ public class UserController {
                 return "failure: incorrect password";
             }
             try {
+                // do not delete the posts, replies, quote posts of a user when they delete their account
+                // instead delete the likes and bookmarks done by that user.
+                // then delete the user account.
+                // however the following service layer deletes the likes and connection entities.
+                // this is done because using the like and bookmark services directly causes the
+                // modularity test case to fail and give cyclic dependency error
+                orchestrationService.deleteUserAccountAndLikesAndConnections(userEntity.getUserId());
                 userService.deleteUser(userEntity);
                 return "success";
             } catch (Exception e) {
