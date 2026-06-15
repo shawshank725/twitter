@@ -41,7 +41,7 @@ export default function PostCard({ userId, postEntity,
     const { session } = useAuth();
     const authUser = session.user;
     const loggedInUser = authUser?.username;
-    const { data: user, isLoading: isUserProfileLoading } = useGetUserInfoFromId(userId);
+    const { data: user, isLoading: isUserProfileLoading } = useGetUserInfoFromId(postEntity.userId);
     const userEntity = user?.data!;
 
     const quotedPostId = postEntity.quotedPostId ?? 0;

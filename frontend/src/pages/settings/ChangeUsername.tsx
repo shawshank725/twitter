@@ -22,8 +22,8 @@ export default function ChangeUsername() {
         const checkUsername = async (username: string) => {
             try {
                 const result = await usernameAvailable(username);
-                if (result === true) { setUsernameFound(true); }
-                else { setUsernameFound(false); }
+                if (result === true) { setUsernameFound(false); }
+                else { setUsernameFound(true); }
             }
             catch (error) {
                 console.error(error);
@@ -80,7 +80,6 @@ export default function ChangeUsername() {
                         }}
                     />
                 </div>
-                <span className="notificationHeaderHeadingSpan">Change username</span>
             </div>
 
             <div className="settingsFormContainer">

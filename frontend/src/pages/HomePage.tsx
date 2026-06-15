@@ -5,6 +5,8 @@ import { useAuth } from '@context/AuthContext';
 import PostingArea from '@components/posts/PostingArea';
 import PostCard from '@components/posts/PostCard';
 import { useGetTimeline } from '@/api/query/PostQueries';
+import { useGetUsersBookmarks } from '@/api/query/BookmarksQueries';
+import { useGetPostLikesByUser } from '@/api/query/LikeQueries';
 
 export default function HomePage() {
   useEffect(() => {
@@ -24,6 +26,9 @@ export default function HomePage() {
   const posts =
     data?.pages.flatMap(page => page.content) ?? [];
 
+    const userLikedPostsResult = useGetPostLikesByUser(authUser?.userId!);
+        const userBookmarkedPostResult = useGetUsersBookmarks(authUser?.userId!);
+        
   return (
     <div className="homePageContainer">
       <PostingArea userInfo={authUser} />
@@ -34,6 +39,8 @@ export default function HomePage() {
             key={post.postId}
             userId={post.userId}
             postEntity={post}
+            userLikedPostsResult={userLikedPostsResult}
+            userBookmarkedPostsResult={userBookmarkedPostResult}
           />
         ))}
 

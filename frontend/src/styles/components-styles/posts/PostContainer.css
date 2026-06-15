@@ -14,10 +14,8 @@
 }
 
 .quotedPostContainer {
-    border-radius: 20px;
     overflow: hidden;
     width: 90%;
-    border: 1px solid grey;
 }
 .unavailableQuotePostText {
     color:grey;

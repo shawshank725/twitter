@@ -41,7 +41,8 @@ export default function BookmarksPage() {
                         <PostCard userId={authUser.userId} 
                         postEntity={bookmarkPost} 
                         userLikedPostsResult={userLikedPostsResult}
-                        userBookmarkedPostsResult={userBookmarkedPostsResult} />
+                        userBookmarkedPostsResult={userBookmarkedPostsResult} 
+                        key={bookmarkPost.postId}/>
                     ))
                 )
             }

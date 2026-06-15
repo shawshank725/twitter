@@ -45,7 +45,7 @@ export default function SettingsPage() {
                     <span>Change email</span>
                     <span onClick={() => { navigate('/settings/changePassword')}}>Change password</span>
                     <span style={{ color: "red" }}>Deactivate account</span>
-                    <span style={{ color: "red" }}>Delete account</span>
+                    <span style={{ color: "red" }} onClick={() => { navigate('/settings/deleteAccount')}}>Delete account</span>
                 </div>
             )}
 
@@ -89,26 +89,6 @@ export default function SettingsPage() {
                     <span>Reply notifications</span>
                     <span>Mention notifications</span>
                     <span>Follow notifications</span>
-                </div>
-            )}
-
-            <div
-                className="accordion"
-                onClick={() =>
-                    setOpenSection(openSection === "appearance" ? null : "appearance")
-                }
-            >
-                <p className="accordionText">Appearance</p>
-                {openSection === "appearance"
-                    ? <ChevronDown size={20} />
-                    : <ChevronRight size={20} />}
-            </div>
-
-            {openSection === "appearance" && (
-                <div className="panel">
-                    <span>Theme</span>
-                    <span>Font size</span>
-                    <span>Reduce animations</span>
                 </div>
             )}
 

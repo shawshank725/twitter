@@ -2,7 +2,8 @@
         allowedDependencies = {
                 "posting::posts",
                 "authentication",
-                "connections"
+                "connections",
+                "posting::dto"
         }
 )
 package com.social.twitter.timeline;

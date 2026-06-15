@@ -13,4 +13,6 @@ public interface BookmarkService {
     List<BookmarkEntity> getAllBookmarksDescendingOrder(Long userId);
 
     List<BookmarkEntity> findAllByBookmarkedPostId(Long postId);
+
+    void deleteAllBookmarksByUserId(Long userId);
 }

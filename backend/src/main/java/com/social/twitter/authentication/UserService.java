@@ -12,6 +12,7 @@ public interface UserService {
     User getUserByUserId(Long userId);
     User addUser(RegistrationRequest registrationRequest);
     User updateUser(UpdatedUser updatedUser);
+    User updateUser(User user);
     User getUserByUsername(String username);
     User getUserByEmail(String email);
     void deleteUser(User user);

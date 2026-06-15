@@ -4,6 +4,8 @@ import com.social.twitter.authentication.UserService;
 import com.social.twitter.media.MediaService;
 import com.social.twitter.notification.NotificationService;
 import com.social.twitter.posting.posts.PostService;
+import com.social.twitter.posting.posts.dto.PostDTO;
+import com.social.twitter.posting.posts.dto.PostMapper;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.posting.posts.internal.entity.PostMediaEntity;
 import com.social.twitter.posting.posts.internal.repository.PostMediaRepository;
@@ -166,13 +168,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostEntity> getPostsForTimeline(int page, int size) {
+    public Page<PostDTO> getPostsForTimeline(int page, int size) {
         Pageable pageable = PageRequest.of(
                 page,
                 size,
                 Sort.by("createdAt").descending()
         );
 
-        return postRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return postRepository
+                .findAllByOrderByCreatedAtDesc(pageable)
+                .map(PostMapper::mapPostEntityToPostDTO);
     }
 }

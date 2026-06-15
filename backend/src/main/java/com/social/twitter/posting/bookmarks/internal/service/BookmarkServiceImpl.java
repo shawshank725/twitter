@@ -3,6 +3,7 @@ package com.social.twitter.posting.bookmarks.internal.service;
 import com.social.twitter.posting.bookmarks.BookmarkService;
 import com.social.twitter.posting.bookmarks.internal.entity.BookmarkEntity;
 import com.social.twitter.posting.bookmarks.internal.repository.BookmarkRepository;
+import com.social.twitter.posting.likes.internal.entity.LikeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,20 @@ public class BookmarkServiceImpl implements BookmarkService {
     @Override
     public List<BookmarkEntity> findAllByBookmarkedPostId(Long postId) {
         return bookmarkRepository.findAllByBookmarkedPost_PostId(postId);
+    }
+
+    @Override
+    public void deleteAllBookmarksByUserId(Long userId) {
+        try {
+            List<BookmarkEntity> bookmarkEntities = getAllBookmarksDescendingOrder(userId);
+            for (BookmarkEntity bookmarkEntity: bookmarkEntities){
+                String result = removeBookmark(userId, bookmarkEntity.getBookmarkedPost().getPostId());
+                System.out.println(result);
+            }
+            System.out.println("Deleted all bookmark entities.");
+        }
+        catch (Exception e){
+            System.out.println("Failed to delete bookmark entities.");
+        }
     }
 }

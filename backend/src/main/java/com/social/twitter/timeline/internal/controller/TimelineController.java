@@ -2,6 +2,7 @@ package com.social.twitter.timeline.internal.controller;
 
 import com.social.twitter.authentication.UserService;
 import com.social.twitter.posting.posts.PostService;
+import com.social.twitter.posting.posts.dto.PostDTO;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import com.social.twitter.timeline.internal.entity.SearchResult;
 import com.social.twitter.timeline.internal.service.TimelineService;
@@ -26,7 +27,7 @@ public class TimelineController {
     private final PostService postService;
 
     @GetMapping("/generate")
-    public Page<PostEntity> generatePosts(
+    public Page<PostDTO> generatePosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){

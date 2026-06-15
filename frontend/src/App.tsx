@@ -20,6 +20,7 @@ import SearchPage from "@pages/SearchPage";
 import QuoteRetweetPage from "./pages/QuoteRetweetPage";
 import ChangeUsername from "./pages/settings/ChangeUsername";
 import ChangePassword from "./pages/settings/ChangePassword";
+import DeleteAccount from "./pages/settings/DeleteAccount";
 
 function App() {
   
@@ -66,6 +67,7 @@ function App() {
         <Route path="settings" element={<SettingsPage />} />
         <Route path="settings/changeUsername" element={<ChangeUsername />} />
         <Route path="settings/changePassword" element={<ChangePassword />} />
+        <Route path="settings/deleteAccount" element={<DeleteAccount />} />
 
         <Route path=":username" element={<ProfilePage />} />
         <Route path=":username/:connectionType" element={<ConnectionPage />} />

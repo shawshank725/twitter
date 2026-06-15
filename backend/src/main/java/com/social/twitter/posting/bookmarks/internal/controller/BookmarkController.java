@@ -23,6 +23,8 @@ public class BookmarkController {
     // ADDING A BOOKMARK
     @PostMapping("/addBookmark")
     public BookmarkEntity addBookmark(@RequestBody BookmarkEntity bookmarkEntity){
+        System.out.println(bookmarkEntity);
+        System.out.println("this is the BOOKMARK ENTITY BRO");
         return bookmarkService.addBookmark(bookmarkEntity);
     }
 

@@ -21,4 +21,6 @@ public interface LikeService {
     List<LikeEntity> getLikeEntityByLikedUserId(Long userId);
 
     List<PostEntity> getLikedPostEntityByUserId(Long userId);
+
+    void deleteAllLikesByUserId(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.social.twitter.posting.posts;
 
 
+import com.social.twitter.posting.posts.dto.PostDTO;
 import com.social.twitter.posting.posts.internal.entity.PostEntity;
 import org.springframework.data.domain.Page;
 
@@ -31,5 +32,5 @@ public interface PostService {
 
     List<Long> getPostIds(Set<Long> userIds);
 
-    Page<PostEntity> getPostsForTimeline(int page, int size);
+    Page<PostDTO> getPostsForTimeline(int page, int size);
 }

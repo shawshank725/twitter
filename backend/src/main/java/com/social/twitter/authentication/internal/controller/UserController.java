@@ -8,6 +8,7 @@ import com.social.twitter.authentication.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     // get the current logged-in user information from this endpoint
     @GetMapping("/me")
@@ -70,5 +72,55 @@ public class UserController {
         return userService.getUserByUserId(userId);
     }
 
+
+    @PostMapping("/updateUsername")
+    public String updateUsername(@RequestParam String oldUsername,
+                                 @RequestParam String newUsername,
+                                 @RequestParam String password) {
+        User userEntity = userService.getUserByUsername(oldUsername);
+        if (userEntity == null) {
+            return "failure: user not found";
+        }
+
+        if (!passwordEncoder.matches(password, userEntity.getPassword())) {
+            return "failure: passwords don't match";
+        }
+
+        userEntity.setUsername(newUsername);
+        userService.updateUser(userEntity);
+        return "success";
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestParam String username,@RequestParam String oldPassword, @RequestParam String newPassword){
+        User userEntity = userService.getUserByUsername(username);
+        if (!passwordEncoder.matches(oldPassword, userEntity.getPassword())) {
+            return "failure: passwords don't match";
+        }
+        else {
+            userEntity.setPassword(passwordEncoder.encode(newPassword));
+            userService.updateUser(userEntity);
+            return "success";
+        }
+    }
+
+    @PostMapping("/deleteAccount")
+    public String deleteAccount(@RequestParam String username, @RequestParam String password) {
+        User userEntity = userService.getUserByUsername(username);
+        if (userEntity != null) {
+            if (!passwordEncoder.matches(password, userEntity.getPassword())) {
+                return "failure: incorrect password";
+            }
+            try {
+                userService.deleteUser(userEntity);
+                return "success";
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return "failure: could not delete";
+            }
+        } else {
+            return "failure: user not found";
+        }
+    }
 
 }

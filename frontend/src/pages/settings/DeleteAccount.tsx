@@ -7,7 +7,7 @@ import { deleteUserAccount } from "@/api/service/UserService";
 import { toast } from "react-toastify";
 import { deleteAllUsersPosts } from "@/api/service/PostingService";
 
-export default function SettingsPage() {
+export default function DeleteAccount() {
     useEffect(() => { document.title = "Settings" }, []);
     const navigate = useNavigate();
     const { session, setSession } = useAuth();

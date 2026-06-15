@@ -7,6 +7,8 @@ import com.social.twitter.authentication.internal.entity.UpdatedUser;
 import com.social.twitter.authentication.internal.entity.User;
 import com.social.twitter.authentication.internal.repository.RoleRepository;
 import com.social.twitter.authentication.internal.repository.UserRepository;
+import com.social.twitter.posting.bookmarks.BookmarkService;
+import com.social.twitter.posting.likes.LikeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final LikeService likeService;
+    private final BookmarkService bookmarkService;
 
     @Value("${twitter.profile-photo}")
     private String DEFAULT_PROFILE_PHOTO;
@@ -52,8 +56,8 @@ public class UserServiceImpl implements UserService {
         user.setUsername(registrationRequest.username());
         user.setName(registrationRequest.name());
         user.setPassword(passwordEncoder.encode(registrationRequest.password()));
-        user.setProfilePhoto(DEFAULT_PROFILE_PHOTO);
-        user.setBackgroundPhoto(DEFAULT_BACKGROUND_PHOTO);
+        user.setProfilePhoto(null);
+        user.setBackgroundPhoto(null);
         user.setEnabled(true);
 
         // creating date and creating local date as well
@@ -85,6 +89,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         return optionalUser.orElse(null);
@@ -99,9 +108,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(User user) {
-        // when deleting a user account, delete their posts, delete the post media that they uploaded
-        // and then delete the user itself.
-
+        // do not delete the posts, replies, quote posts of a user when they delete their account
+        // instead delete the likes and bookmarks done by that user.
+        // then delete the user account.
+        likeService.deleteAllLikesByUserId(user.getUserId());
+        bookmarkService.deleteAllBookmarksByUserId(user.getUserId());
         userRepository.delete(user);
     }
 

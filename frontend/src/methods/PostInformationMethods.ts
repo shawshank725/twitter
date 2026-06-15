@@ -77,11 +77,12 @@ export const addRemoveBookmark = async (postEntity:PostEntity,
     else {
       // ADD THE LIKE 
       const date = new Date();
-      await addBookmark({
+      const result = await addBookmark({
         bookmarkedByUserId: authUser!.userId,
         bookmarkedPost: postEntity,
         bookmarkedAt: date.toISOString(),
       });
+      console.log(result);
       refetchPostBookmarksCount();
       userBookmarkedPostsResult.refetch();
     }

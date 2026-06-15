@@ -81,4 +81,18 @@ public class LikeServiceImpl implements LikeService {
         }
         return posts;
     }
+
+    @Override
+    public void deleteAllLikesByUserId(Long userId) {
+        try {
+            List<LikeEntity> likeEntities = getLikeEntityByLikedUserId(userId);
+            for (LikeEntity likeEntity: likeEntities){
+                deleteByLikeEntity(likeEntity);
+            }
+            System.out.println("Deleted all like entities.");
+        }
+        catch (Exception e){
+            System.out.println("Failed to delete  like entities.");
+        }
+    }
 }
